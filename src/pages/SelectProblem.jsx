@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Card, CardContent, CardActions, Button, Typography, Grid, CardMedia, Link } from "@mui/material";  
+import { Card, CardContent, CardActions, Button, Typography, Grid, CardMedia } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import Lottie from "lottie-react";
 import animationData from "../assets/Animation.json";
@@ -7,14 +8,15 @@ import articulationImage from "../assets/img/articulation.png";
 import stutteringProblem from "../assets/img/stutteringProblem.jpg";
 import { speakText } from "../utils/tts"; 
 import "../styles/SelectProblem.css"; 
-
 const problems = [
   {
     title: "Articulation Disorders",
-    description:
-      "Helps kids practice saying sounds clearly, like 's' or 'r.' If your child says 'wabbit' instead of 'rabbit,' this is the area to focus on.",
-    image: articulationImage,
-    path: "/articulation",
+description:
+  "Helps kids learn how to say sounds correctly, like \"s\", \"r\", or \"th\". If your child says \"wabbit\" instead of \"rabbit\" or \"thun\" instead of \"sun,\" this is the right place to start .💫",
+image: articulationImage,
+path: "/Articulation",
+path1:"/ArticulationIntro"
+
   },
   {
     title: "Language Disorders",
@@ -67,7 +69,12 @@ export default function SelectProblemPage() {
                     {problem.description}
                   </Typography>
                 </CardContent>
-                <CardActions style={{ justifyContent: "center" }}>
+                <CardActions style={{ padding: "0 5rem 1rem" }}>
+                <Link to={problem.path1}>
+                  <Button size="small"  >
+                  Learn More
+                  </Button>
+                  </Link>
                   <Link to={problem.path}>
                     <Button className="btn-primary">
                       Start
@@ -79,17 +86,8 @@ export default function SelectProblemPage() {
           ))}
         </Grid>
       </div>
-      
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <Lottie
-            animationData={animationData}
-            loop
-            onClick={handleAnimationClick}
-            style={{ cursor: "pointer" }}
-          />
-        </div>
-      </div>
+
+  
     </>
   );
 }

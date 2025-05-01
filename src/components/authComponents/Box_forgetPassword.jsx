@@ -34,6 +34,7 @@ const LeftBox_forgetPassword = () => {
 
         <div className="row text-center sup mb-3">
           <small>Remember your password? <Link to="/Login">Back to Login</Link></small>
+          
         </div>
       </div>
       </div>

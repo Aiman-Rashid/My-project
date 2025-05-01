@@ -1,0 +1,124 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+
+/* Articulation intro page CSS */
+:root {
+    --primary-color:#7030a0;
+    --unlocked-bg: #d6f5d6;
+    --locked-bg: #f8d7da;
+    --button-bg: #4a4a4a;
+    --button-hover-bg: #333;
+    --text-color: #333;
+    --gradient-bg: linear-gradient(to right, #2575fc,#7030a0);
+    --gradient-heading: linear-gradient(to right, #2575fc,#7030a0,purple);
+  }  
+.ArticulationIntroHeading{
+
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-transform: uppercase;
+
+}
+.container-ArticulationDisorderIntro{
+    max-width: 100%;
+    padding: 20px;
+     background-color: #E6E6FA;
+  color: #333;
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    border-radius: 10px; /* Rounded corners for the container */ 
+    min-height: 100vh;
+  }
+  /* articulation excercise list */
+  /* articulation excercise list */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container-q {
+    max-width: 900px;
+    margin: 30px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* Exercise Page Header */
+  h2 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  /* Exercise Description */
+  p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Buttons */
+  button
+   {
+  border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Additional styles for age headings and sound cards */
+  .age-heading {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .sound-card {
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+    height: 100%;
+  }
+  
+  .sound-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .sound-title {
+    font-size: 1.2rem;
+    color: #222;
+  }
+  
+  @media (max-width: 600px) {
+    .container-q {
+      padding: 15px;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    p {
+      font-size: 0.9rem;
+    }
+  
+    .MuiButton-root {
+      font-size: 0.9rem;
+    }
+  }
+  

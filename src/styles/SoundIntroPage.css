@@ -1,0 +1,79 @@
+/* Root variables for colors and gradients */
+:root {
+  --primary-color:#7030a0;
+  --unlocked-bg: #d6f5d6;
+  --locked-bg: #f8d7da;
+  --button-bg: #4a4a4a;
+  --gradient-bg: linear-gradient(to right, #2575fc,#7030a0);
+  --gradient-heading: linear-gradient(to right, #2575fc,#7030a0,purple);
+}
+
+/* Articulation Game Heading */
+.ArticulationGameHeading {
+  font-weight: bold;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  margin-bottom: 10px;  /* Added for spacing consistency */
+}
+
+
+
+/* Flex container for intro screen and video sections */
+.intro-screen,
+.instruction-video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Lottie animation styling */
+.lottie-animation {
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto;
+  cursor: pointer;  /* Pointer cursor on click */
+}
+
+/* Button styling */
+button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s ease;
+  margin-top: 16px;
+  background-color: var(--button-bg);  /* Default button background */
+  color: #fff;  /* White text on buttons */
+}
+
+button:hover {
+  color: #7020a0 !important;
+  background-color: transparent;
+}
+
+/* Purple background button class */
+.bg-purple-600 {
+  background-color: var(--primary-color);
+}
+
+
+/* Video player styling */
+.video-player {
+  margin: 20px 0;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+}
+
+/* Text color for purple headings */
+.text-purple-600 {
+  color: var(--primary-color);
+}
+
+/* Spacing for instruction video */
+.instruction-video {
+  margin-top: 20px;
+}
