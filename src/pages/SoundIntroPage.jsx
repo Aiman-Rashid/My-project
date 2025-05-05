@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { playAnimationAndSound } from "../utils/animationHelper";
 import Lottie from "lottie-react";
@@ -67,7 +70,11 @@ const SoundIntroPage = () => {
             {title}
           </h1>
           {subtitle && (
+<<<<<<< HEAD
             <h5 className="text-md text-gray-700 mb-2 subtitle-SI">{subtitle}</h5>
+=======
+            <h2 className="text-lg text-gray-700 mb-2">{subtitle}</h2>
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
           )}
           <Lottie
             lottieRef={lottieRef}
@@ -88,7 +95,11 @@ const SoundIntroPage = () => {
       )}
 
       {videoPlayed && (
+<<<<<<< HEAD
         <div className="instruction-video flex flex-col items-center justify-center space-y-4 ">
+=======
+        <div className="instruction-video flex flex-col items-center justify-center space-y-4 mt-5">
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
           <h1 className="text-2xl font-bold text-purple-600 mb-4 ArticulationGameHeading">
             {title}
           </h1>
@@ -113,4 +124,8 @@ const SoundIntroPage = () => {
   );
 };
 
+<<<<<<< HEAD
 export default SoundIntroPage;
+=======
+export default SoundIntroPage;
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b

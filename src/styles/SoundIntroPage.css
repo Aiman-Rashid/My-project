@@ -16,9 +16,13 @@
   margin-bottom: 10px;  /* Added for spacing consistency */
 }
 
+<<<<<<< HEAD
 .subtitle-SI{
   color: var(--primary-color);
 }
+=======
+
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
 
 /* Flex container for intro screen and video sections */
 .intro-screen,

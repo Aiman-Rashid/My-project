@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
+=======
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
 import '../styles/Articulation.css';
 
 const colors = [
@@ -12,26 +15,40 @@ const colors = [
 const consonantSections = [
   {
     age: "2–3 Years",
+<<<<<<< HEAD
     minAge: 2,
     maxAge: 3,
     sections: [
       { label: "🟢 Green Light (Lips & Easy Sounds)", sounds: ["p", "b", "m", "h", "w"] },
       { label: "🟡 Yellow Light (Tongue Tip)", sounds: ["t", "d", "n"] },
       { label: "🔴 Red Light (Back Sounds)", sounds: ["k", "g"] }
+=======
+    sections: [
+      { label: "🟢 Green Light (Lips & Easy Sounds)", sounds: ["p", "b", "m", "h", "w"] },
+      { label: "🟡 Yellow Light (Tongue Tip)", sounds: ["t", "d", "n"] },
+      { label: "🔴 Red Light (Back Sounds)", sounds: ["k", "g", "ng"] }
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
     ]
   },
   {
     age: "4 Years",
+<<<<<<< HEAD
     minAge: 4,
     maxAge: 4,
     sections: [
       { label: "🟢 Green Light (Lips)", sounds: ["f", "v"] },
       { label: "🟡 Yellow Light (Tongue Tip)", sounds: ["s", "z"] },
+=======
+    sections: [
+      { label: "🟢 Green Light (Lips)", sounds: ["f", "v"] },
+      { label: "🟡 Yellow Light (Tongue Tip)", sounds: ["s", "z", "l"] },
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
       { label: "🔴 Red Light (Harder Tongue Sounds)", sounds: ["sh", "j", "ch"] }
     ]
   },
   {
     age: "5–6 Years",
+<<<<<<< HEAD
     minAge: 5,
     maxAge: 6,
     sections: [
@@ -43,12 +60,22 @@ const consonantSections = [
     age: "6-7 Years",
     minAge: 6,
     maxAge: 7,
+=======
+    sections: [
+      { label: "🟡 Yellow Light (Emerging Sounds)", sounds: ["r"] },
+      { label: "🔴 Red Light (Advanced Sounds)", sounds: ["zh", "th (thanks)", "th (they)"] }
+    ]
+  },
+  {
+    age: "6+ Years",
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
     sections: [
       { label: "🔴 Red Light (Not for home practice)", sounds: ["R", "L"] }
     ]
   }
 ];
 
+<<<<<<< HEAD
 const AgeSoundExercises = () => {
   const [age, setAge] = useState(null);
   const [filteredSections, setFilteredSections] = useState([]);
@@ -97,6 +124,29 @@ const SectionGroup = ({ title, groupedSections }) => (
     {groupedSections.map((group, index) => (
       <article key={index} className="mb-4">
         <h4 className="age-heading">{group.age}</h4>
+=======
+const vowelSections = [
+  {
+    label: "🟢 Green Light Vowels",
+    sounds: ["ah", "aah", "oo", "oh", "ee"]
+  },
+  {
+    label: "🟡 Yellow Light Vowels",
+    sounds: ["i", "uh", "eh", "i*", "a**"]
+  },
+  {
+    label: "🔴 Red Light Vowels (Not for home)",
+    sounds: ["R", "L", "RL"]
+  }
+];
+
+const SectionGroup = ({ title, groupedSections }) => (
+  <section className="mb-5" aria-label={title}>
+    <h3 className="main-section-title">{title}</h3>
+    {groupedSections.map((group, index) => (
+      <article key={index} className="mb-4">
+        {group.age && <h4 className="age-heading">{group.age}</h4>}
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
         {group.sections.map((section, secIndex) => (
           <div key={secIndex} className="mb-3">
             <h5 className="section-title">{section.label}</h5>
@@ -114,6 +164,7 @@ const SectionGroup = ({ title, groupedSections }) => (
                       <h5 className="sound-title mb-2" aria-label={`Sound ${sound}`}>
                         🔤 {sound}
                       </h5>
+<<<<<<< HEAD
                       {/* Only show Practice button for sounds that have exercises */}
                       {["R", "L"].includes(sound) ? (
                         <button 
@@ -132,6 +183,15 @@ const SectionGroup = ({ title, groupedSections }) => (
                           Practice
                         </Link>
                       )}
+=======
+                      <Link
+                        to={`/ArticulationGame/${sound.replace(/[^a-zA-Z0-9]/g, '')}`}
+                        className="btn btn-sm btn-primary"
+                        aria-label={`Practice the sound ${sound}`}
+                      >
+                        Practice
+                      </Link>
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
                     </div>
                   </div>
                 </div>
@@ -144,4 +204,35 @@ const SectionGroup = ({ title, groupedSections }) => (
   </section>
 );
 
+<<<<<<< HEAD
 export default AgeSoundExercises;
+=======
+const AgeSoundExercises = () => {
+  return (
+    <main className="container-q" role="main">
+      <div className="mb-4">
+        <Link to="/Articulation" className="btn btn-outline-secondary">
+          ← Back to Introduction
+        </Link>
+      </div>
+
+      <h2 className="text-center mb-3">🎯 Articulation Practice by Sound & Age</h2>
+
+      <div className="practice-intro mb-4">
+        <p>
+          Practice speech sounds organized by age and difficulty. Start with sounds appropriate for your age group and gradually move to more challenging ones.
+          Click "Practice" to begin exercises focused on each sound.
+        </p>
+      </div>
+
+      <SectionGroup title="🔤 Consonant Sounds" groupedSections={consonantSections} />
+
+      <hr className="my-5" />
+
+      <SectionGroup title="🗣️ Vowel Sounds" groupedSections={[{ sections: vowelSections }]} />
+    </main>
+  );
+};
+
+export default AgeSoundExercises;
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b

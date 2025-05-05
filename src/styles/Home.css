@@ -158,6 +158,7 @@
     align-items: center;
     gap: 0.8rem;
     box-shadow: 0 10px 20px rgba(112, 48, 160, 0.2);
+<<<<<<< HEAD
     outline: 2px solid #7030a0;
     outline-offset: 3px;
   }
@@ -169,6 +170,9 @@
   }
 
   
+=======
+  }
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
   
   .btn-icon {
     transition: transform 0.3s ease;
@@ -858,6 +862,7 @@
 
 
 
+<<<<<<< HEAD
 @media (max-width: 320px) {
   .navbar {
     padding: 0.5rem 1rem; /* Reduce padding */
@@ -952,3 +957,6 @@
     align-items: center !important;
   }
 }
+=======
+ 
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b

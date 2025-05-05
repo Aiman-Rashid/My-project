@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 
@@ -41,11 +45,17 @@ body {
   }
   
   .container-q {
+<<<<<<< HEAD
     max-width: 100%;
+=======
+    max-width: 900px;
+    margin: 30px auto;
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+<<<<<<< HEAD
     background-image: url("/assets/img/ArticulationBg.png");
     background-size: cover;
     background-position: center;
@@ -74,6 +84,10 @@ body {
     overflow: auto; 
   }
 
+=======
+  }
+  
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
   /* Exercise Page Header */
   h2 {
     font-size: 2rem;
@@ -83,7 +97,11 @@ body {
   }
   
   /* Exercise Description */
+<<<<<<< HEAD
   .p {
+=======
+  p {
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
     font-size: 1rem;
     color: #666;
     line-height: 1.5;
@@ -144,4 +162,9 @@ body {
     .MuiButton-root {
       font-size: 0.9rem;
     }
+<<<<<<< HEAD
   }
+=======
+  }
+  
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b

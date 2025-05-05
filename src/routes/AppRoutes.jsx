@@ -10,7 +10,10 @@ import Articulation from '../pages/Articulation';
 import ArticulationIntro from '../pages/ArticulationIntro';
 import SoundIntroPage from '../pages/SoundIntroPage'; 
 import PSoundAGame from '../pages/Sounds/PSoundAGame';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
 function AppRoutes() {
   return (
     <Routes>
@@ -26,7 +29,10 @@ function AppRoutes() {
       <Route path="/ArticulationIntro" element={<ArticulationIntro />} />
       <Route path="/ArticulationGame/:soundId" element={<SoundIntroPage />} />
       <Route path="/ArticulationGame/partice/:soundId" element={<PSoundAGame />} />
+<<<<<<< HEAD
     
+=======
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
     </Routes>
   );
 }

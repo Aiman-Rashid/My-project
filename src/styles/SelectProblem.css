@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 :root {
   --primary-color:#7030a0;
@@ -54,12 +55,23 @@
   }
 
   
+=======
+/* styles/SelectProblem.css */
+
+/* General container styling */
+.select-problem-container {
+    padding: 40px;
+    text-align: center
+  }
+  
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
   /* Grid container styling */
   .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
     justify-items: center;
+<<<<<<< HEAD
     /* background: #ffffff; White background for cards */
     /* border: 1px solid #ccc; */
     border-radius: 10px; /* Rounded corners */
@@ -68,6 +80,8 @@
     transition: transform 0.3s, max-height 0.3s ease; /* Smooth transition for hover effect and submenu */
     /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); Subtle box shadow */
     transition: max-height 0.3s ease; /* Smooth transition for submenu */
+=======
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
   }
   
   /* Grid item styling */
@@ -80,7 +94,10 @@
     border-radius: 12px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+<<<<<<< HEAD
     
+=======
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
   }
   
   .card:hover {
@@ -98,6 +115,7 @@
   
   /* Button styling */
   .btn-primary {
+<<<<<<< HEAD
     padding: 10px 20px; /* Increase padding for buttons */
     margin-top: 10px;
   
@@ -108,11 +126,21 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+=======
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    background-color: #3f51b5;
+    color: white;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
   }
   
   .btn-primary:hover {
     background-color: #2c387e;
   }
+<<<<<<< HEAD
   .Card-heading-SP{
     color: var(--primary-color);
     font-size: 24px;
@@ -124,3 +152,6 @@
   }
 
  
+=======
+  
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b

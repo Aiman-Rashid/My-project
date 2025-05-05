@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useRef, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { LinearProgress, Button } from "@mui/material";
@@ -613,3 +614,143 @@ PSoundAGame.propTypes = {
 };
 
 export default PSoundAGame;
+=======
+// import React, { useState, useRef, useEffect, useMemo } from "react";
+// import { useParams, Link } from "react-router-dom";
+// import { LinearProgress, Button } from "@mui/material";
+// import { motion } from "framer-motion";
+// import Lottie from "react-lottie";
+// import animationData2 from "../../assets/ballon.json";
+// import balloonImage from "../../assets/img/ballon.png";
+// import "../../styles/ArticulationGame.css";
+// import { speakText } from "../../utils/tts";
+// import { startSpeechRecognition } from "../../utils/speechRecognition";
+// import PropTypes from "prop-types";
+// import articulationExercises from "../../data/soundData"; // ✅ Import from data file
+
+// const SpeakerButton = ({ word }) => (
+//   <button
+//     className="play-button"
+//     onClick={(e) => {
+//       e.stopPropagation();
+//       speakText(word);
+//     }}
+//     aria-label={`Play pronunciation for ${word}`}
+//   >
+//     🔊
+//   </button>
+// );
+
+// const PSoundAGame = () => {
+//   const { soundId } = useParams(); // Change from 'id' to 'soundId'
+//   const exercise = articulationExercises[soundId]; // ✅ Get exercise by id from data
+//   if (!exercise) return <div>Exercise not found</div>;
+
+//   const [words, setWords] = useState(exercise.wordsWithEmojis || []);
+//   const [progress, setProgress] = useState(0);
+//   const [showBalloonImage, setShowBalloonImage] = useState(true);
+//   const [showLottieAnimation, setShowLottieAnimation] = useState(false);
+//   const [showCompletionOverlay, setShowCompletionOverlay] = useState(false);
+//   const [isListening, setIsListening] = useState(false);
+//   const [selectedWord, setSelectedWord] = useState(null);
+//   const lottieRef = useRef(null);
+//   const timeoutRef = useRef(null);
+
+//   const handleWordSpoken = (wordObj) => {
+//     const remaining = words.filter((w) => w.word !== wordObj.word);
+//     setWords(remaining);
+//     const newProgress = ((exercise.wordsWithEmojis.length - remaining.length) /
+//       exercise.wordsWithEmojis.length) * 100;
+//     setProgress(newProgress);
+//     setShowBalloonImage(false);
+//     setShowLottieAnimation(true);
+//     if (lottieRef.current) lottieRef.current.play();
+//     if (timeoutRef.current) clearTimeout(timeoutRef.current);
+//     timeoutRef.current = setTimeout(() => {
+//       setShowLottieAnimation(false);
+//       setShowBalloonImage(true);
+//       if (newProgress >= 100) setShowCompletionOverlay(true);
+//     }, 2000);
+//   };
+
+//   useEffect(() => {
+//     return () => {
+//       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+//     };
+//   }, []);
+
+//   const closeOverlay = () => {
+//     setShowCompletionOverlay(false);
+//   };
+
+//   const calculateStars = () => Math.min(5, Math.ceil(progress / 20));
+
+//   return (
+//     <div className="game-container">
+//       <h2 className="title">{exercise.title}</h2>
+//       <p className="subtitle">Tap the speaker to hear. Tap the word card to say it out loud than see the magic✨.</p>
+//       <LinearProgress variant="determinate" value={progress} className="progress-bar" />
+//       <div className="game-area">
+//         <div className="word-list">
+//           {words.map((wordObj) => (
+//             <motion.div
+//               key={wordObj.word}
+//               className={`word-card ${selectedWord === wordObj.word ? "selected" : ""} ${isListening ? "disabled" : ""}`}
+//               whileHover={{ scale: isListening ? 1 : 1.05 }}
+//               whileTap={{ scale: isListening ? 1 : 0.95 }}
+//               onClick={() => {
+//                 if (isListening) return;
+//                 setSelectedWord(wordObj.word);
+//                 handleWordSpoken(wordObj); // ✅ Testing mode: simulate correct speech
+//               }}
+//               role="button"
+//               tabIndex="0"
+//             >
+//               <span className="emoji" role="img">{wordObj.emoji}</span>
+//               <span className="word-text">{wordObj.word}</span>
+//               <SpeakerButton word={wordObj.word} />
+//             </motion.div>
+//           ))}
+//         </div>
+
+//         <div className="basket">
+//           {showBalloonImage && <img src={balloonImage} alt="Balloon" className="balloon-image" />}
+//           {showLottieAnimation && (
+//             <Lottie
+//               ref={lottieRef}
+//               options={{ animationData: animationData2, loop: false, autoplay: true }}
+//               height={300}
+//               width={300}
+//             />
+//           )}
+//         </div>
+
+//         {showCompletionOverlay && (
+//           <div className="completion-overlay">
+//             <div className="completion-content">
+//               <h2>Great Job! 🎉</h2>
+//               <div className="stars-container">
+//                 {[...Array(calculateStars())].map((_, i) => (
+//                   <span key={i} className="star" role="img">⭐</span>
+//                 ))}
+//               </div>
+//               <p>You completed {progress}% of the exercise!</p>
+//               <Link to={"/Articulation"} className="custom-button">
+//                 <Button variant="contained" color="primary" onClick={closeOverlay}>
+//                   Continue
+//                 </Button>
+//               </Link>
+//             </div>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// PSoundAGame.propTypes = {
+//   id: PropTypes.string,
+// };
+
+// export default PSoundAGame;
+>>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
