@@ -1,0 +1,631 @@
+
+/* Color Variables */
+:root {
+  --primary-purple: #5F3A7B;
+  --secondary-purple: #B25FD8;
+  --light-purple: #D6A9F3;
+  --lighter-purple: #F1D4FF;
+  --white: #FFFFFF;
+  --success-green: #4CAF50;
+  --star-yellow: #FFD700;
+}
+
+/* Base Container */
+.game-container {
+  /* Background properties */
+ 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Optional: keeps bg fixed during scrolling */
+  
+  /* Layout properties */
+  width: 100%;
+  min-height: 100vh; /* Use only one min-height definition */
+  padding: 20px;
+  
+  /* Flex properties */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  
+  /* Text properties */
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  
+  /* Reset properties */
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: auto; /* Better than 'visible' for containing children */
+}
+/* Typography */
+.title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--primary-purple);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.subtitle {
+  font-size: clamp(0.6rem, 2.0vw, 0.9rem);
+  color: var(--primary-purple);
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+  max-width: 80%;
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 100%; /* Take full width of its container */
+  max-width: 500px;
+  height: 10px !important;
+  background-color: var(--light-purple);
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+
+.progress-bar > div {
+  background-color: var(--secondary-purple);
+}
+
+/* Game Area Layout */
+.game-area {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .game-area {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+/* Word Cards */
+.word-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.word-card {
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-purple);
+  border: 2px solid var(--light-purple);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  min-height: 60px;
+}
+
+.word-card:hover {
+  background: var(--lighter-purple);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.emoji {
+  margin-right: 0.5rem;
+  font-size: 1.4rem;
+}
+
+.word-text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.play-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--secondary-purple);
+  transition: transform 0.2s;
+  padding: 0.3rem;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+}
+
+
+
+/* Basket Styles - Updated */
+.basket {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  background: var(--white);
+  border: 3px dashed var(--secondary-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 20px;
+  transition: all 0.3s ease; /* Smooth transition for level changes */
+}
+
+/* Basket Image Styles */
+.basket-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+  position: absolute;
+}
+
+/* Ensure Lottie animation container is properly sized */
+.basket > div {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Loading States */
+.basket.loading {
+  background-color: var(--lighter-purple);
+}
+
+.basket-image.loading {
+  opacity: 0.5;
+}
+
+/* Animation States */
+.basket-image.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.basket-image.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .basket {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .basket {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* States */
+.word-card.selected {
+  border: 3px solid var(--success-green);
+  background-color: rgba(76, 175, 80, 0.1);
+  transform: scale(0.98);
+}
+
+.word-card.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  filter: grayscale(30%);
+}
+
+/* Compact Completion Overlay */
+.completion-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.completion-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  width: 85%;
+  max-width: 320px; /* More compact width */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--light-purple);
+}
+
+.completion-content h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--primary-purple);
+}
+
+.stars-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.star {
+  font-size: 1.8rem;
+}
+
+
+
+.filled-star {
+  color: gold;
+  font-size: 2.5rem;
+}
+
+.empty-star {
+  color: #ccc;
+  font-size: 2.5rem;
+}
+.custom-button {
+  display: inline-block;
+
+  position: relative;
+  z-index: 2;
+}
+
+.custom-button .MuiButton-root {
+  background: linear-gradient(to right, var(--secondary-purple), var(--primary-purple));
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(95, 58, 123, 0.3);
+  transition: all 0.3s ease;
+}
+
+.custom-button .MuiButton-root:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(95, 58, 123, 0.4);}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .word-list {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .basket {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 400px) {
+  .word-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .word-card {
+    padding: 0.8rem;
+  }
+}
+
+
+/* Enhanced Try Again Overlay */
+.try-again-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+.try-again-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  width: 85%;
+  max-width: 350px;
+  box-shadow: 0 8px 25px rgba(95, 58, 123, 0.2);
+  border: 2px solid var(--light-purple);
+}
+
+.try-again-content p {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-purple);
+  font-weight: 700;
+}
+
+
+
+.try-again-video {
+  width: 100%;
+  max-height: 180px;
+  border-radius: 10px;
+  margin: 1rem 0;
+  border: 2px solid var(--light-purple);
+  background: #f9f9f9;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.try-again-button {
+  background: linear-gradient(to right, var(--secondary-purple), var(--primary-purple));
+  color: white !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 25px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  font-size: 0.85rem !important;
+  width: 100%;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 3px 10px rgba(95, 58, 123, 0.3) !important;
+  min-width: 120px;
+}
+
+.try-again-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(95, 58, 123, 0.4) !important;
+}
+
+.next-word-button {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.85rem !important;
+  min-width: 120px;
+  background: white !important;
+  color: var(--primary-purple) !important;
+  border: 2px solid var(--light-purple) !important;
+
+  border-radius: 25px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+
+  width: 100%;
+  transition: all 0.3s ease !important;
+}
+
+.next-word-button:hover {
+  background: var(--lighter-purple) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 400px) {
+  .button-group {
+    flex-direction: row;
+  }
+  
+  .try-again-button,
+  .next-word-button {
+    width: auto;
+    flex: 1;
+  }
+}
+
+
+
+/* Loading spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loading-spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Toast notifications customization */
+.Toastify__toast {
+  font-family: inherit;
+  border-radius: 8px;
+}
+
+.Toastify__toast--error {
+  background-color: #ff6b6b;
+}
+
+.Toastify__toast--warning {
+  background-color: #ffd166;
+}
+
+.Toastify__toast--info {
+  background-color: #4ecdc4;
+}
+
+.Toastify__toast--success {
+  background-color: #06d6a0;
+}
+
+.toast-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#tryAgainBtn {
+  background: #4CAF50; /* Green */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#skipNowBtn {
+  background: #f44336; /* Red */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+
+.next-word-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  flex-direction: row;
+}
+
+
+
+.next-word-button:hover {
+  background: #FF5252;
+  box-shadow: 0 6px 12px rgba(255, 107, 107, 0.4);
+}
+
+
+
+.button-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.main-action {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.penalty-notice {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star {
+  font-size: 12px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@media (min-width: 400px) {
+  .try-again-button,
+  .next-word-button {
+    min-width: 140px;
+    padding: 0.6rem 1.2rem !important;
+  }
+}
+.progress-and-tip {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tip-display {
+  background: #f0f4ff;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.tip-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tip-text {
+  flex: 1;
+  font-size: 14px;
+  color: #2c3e50;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.close-tip {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #666;
+  padding: 0 0 0 8px;
+  flex-shrink: 0;
+}
+
+.word-buttons {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.play-button, .tip-button {
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.tip-button {
+  font-size: 20px;
+  color: #ffc107;
+}
+
+
+

@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+:root {
+  --primary-color:#7030a0;
+  --unlocked-bg: #d6f5d6;
+  --locked-bg: #f8d7da;
+  --button-bg: #4a4a4a;
+  --button-hover-bg: #333;
+  --text-color: #333;
+  --gradient-bg: linear-gradient(to right, #2575fc,#7030a0);
+  --gradient-heading: linear-gradient(to right, #2575fc,#7030a0,purple);
+}  
+.select-problem-container {
+
+    /* Background properties */
+    background-image: url("/assets/img/bg7.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Optional: keeps bg fixed during scrolling */
+    
+    /* Layout properties */
+    width: 100%;
+    min-height: 100vh; /* Use only one min-height definition */
+    padding: 20px;
+    
+    /* Flex properties */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    
+    /* Text properties */
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    
+    /* Reset properties */
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: auto; /* Better than 'visible' for containing children */
+  }
+  
+  .SelectProblemHeading h3{
+    font-family: 'Roboto', sans-serif; 
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    background: var(--gradient-heading);
+   
+
+    margin-bottom: 20px; /* Space below the title */
+  }
+
+  
+  /* Grid container styling */
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    justify-items: center;
+    /* background: #ffffff; White background for cards */
+    /* border: 1px solid #ccc; */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside the card */
+    text-align: center;
+    transition: transform 0.3s, max-height 0.3s ease; /* Smooth transition for hover effect and submenu */
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); Subtle box shadow */
+    transition: max-height 0.3s ease; /* Smooth transition for submenu */
+  }
+  
+  /* Grid item styling */
+  .grid-item {
+    max-width: 345px;
+  }
+  
+  /* Card styling */
+  .card {
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Media (image) styling */
+  .card-media img {
+    border-radius: 12px 12px 0 0;
+    object-fit: cover;
+    width: 100%;
+    height: 160px;
+  }
+  
+  /* Button styling */
+  .btn-primary {
+    padding: 10px 20px; /* Increase padding for buttons */
+    margin-top: 10px;
+  
+    color: white;
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  }
+  
+  .btn-primary:hover {
+    background-color: #2c387e;
+  }
+  .Card-heading-SP{
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .card-actions{
+    display: flex;
+    justify-content: center;
+  }
+
+ 
