@@ -1,0 +1,174 @@
+/* Modern CSS for Kids Speaking Practice Page */
+
+/* Main container styles */
+.kids-page {
+    padding: 2rem;
+    background-color: #f0f9ff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(120deg, #e0f7fa 0%, #e1f5fe 100%);
+  }
+  
+  /* Heading styles */
+  .kids-heading {
+    color: #00796b;
+    font-family: 'Comic Sans MS', 'Bubblegum Sans', cursive;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding-bottom: 0.5rem;
+    margin-left: 60px; /* Increased further to 60px */
+    padding-left: 15px; /* Added padding-left for extra buffer */
+  }
+  
+  /* Turtle emoji effect */
+  .kids-heading::before {
+    content: "🐢";
+    font-size: 3rem;
+    position: absolute;
+    top: -20px;
+    left: -65px; /* Moved even further left to -65px */
+    animation: float 3s ease-in-out infinite;
+  }
+  /* Card styles */
+  .kids-card {
+    background-color: white;
+    border-radius: 24px;
+    padding: 2rem;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 600px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 4px solid #4db6ac;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .kids-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Sentence text styles */
+  .kids-sentence {
+    color: #37474f;
+    font-family: 'Varela Round', 'Quicksand', sans-serif;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 1rem;
+    background-color: #e0f2f1;
+    border-radius: 16px;
+    width: 100%;
+    position: relative;
+    border-left: 4px solid #26a69a;
+    border-right: 4px solid #26a69a;
+  }
+  
+  /* Quotation marks */
+  .kids-sentence::before,
+  .kids-sentence::after {
+    font-size: 1.8rem;
+    position: absolute;
+    color: #26a69a;
+    opacity: 0.7;
+  }
+  
+  .kids-sentence::before {
+    content: "";
+    left: 10px;
+    top: 0;
+  }
+  
+  .kids-sentence::after {
+    content: "";
+    right: 10px;
+    bottom: 0;
+  }
+  
+  /* Button styles */
+  .kids-button {
+    background: linear-gradient(45deg, #26a69a 0%, #4db6ac 100%);
+    border-radius: 50px;
+    font-family: 'Varela Round', 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    padding: 0.8rem 2rem;
+    border: none;
+    box-shadow: 0 4px 15px rgba(38, 166, 154, 0.4);
+    transition: all 0.3s ease;
+    text-transform: none;
+    letter-spacing: 0.5px;
+  }
+  
+  .kids-button:hover {
+    background: linear-gradient(45deg, #00897b 0%, #26a69a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(38, 166, 154, 0.6);
+  }
+  
+  .kids-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(38, 166, 154, 0.4);
+  }
+  
+  /* Animations */
+  @keyframes float {
+    0% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(5deg);
+    }
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .kids-page {
+      padding: 1.5rem;
+    }
+    
+    .kids-heading {
+      font-size: 2rem;
+    }
+    
+    .kids-sentence {
+      font-size: 1.4rem;
+    }
+    
+    .kids-button {
+      font-size: 1.1rem;
+      padding: 0.7rem 1.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .kids-heading {
+      font-size: 1.8rem;
+    }
+    
+    .kids-card {
+      padding: 1.5rem;
+    }
+    
+    .kids-sentence {
+      font-size: 1.2rem;
+    }
+    
+    .kids-button {
+      font-size: 1rem;
+      padding: 0.6rem 1.5rem;
+    }
+  }

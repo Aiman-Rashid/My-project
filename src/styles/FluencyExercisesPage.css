@@ -1,0 +1,230 @@
+/* FluencyExercisesPage.css */
+
+.fluency-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: #fff;
+    background-image: radial-gradient(circle at top right, rgba(255, 205, 184, 0.2) 0%, transparent 60%),
+                      radial-gradient(circle at bottom left, rgba(10, 62, 122, 0.1) 0%, transparent 60%);
+  }
+  
+  .page-title {
+    color: #0a3e7a !important;
+    font-weight: bold !important;
+    text-align: center;
+    margin-bottom: 40px !important;
+    position: relative;
+  }
+  
+  .page-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #ffcdb8;
+    border-radius: 2px;
+  }
+  
+  .content-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .intro-text {
+    font-size: 1.1rem;
+    margin: 0 0 2rem 0;
+    max-width: 800px;
+    color: #444;
+    line-height: 1.6;
+  }
+  
+  
+  .character-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: 300px;
+    position: relative;
+  }
+  
+  .pointing-character {
+    position: relative;
+  }
+  
+  .pointing-character::after {
+    content: '';
+    position: absolute;
+    top: 40%;
+    right: -20px;
+    width: 40px;
+    height: 20px;
+    background-color: transparent;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 20px solid #ffcdb8;
+    z-index: 1;
+  }
+  
+  .character-image {
+    /* width: 100%;
+    max-width: 280px; */
+    height: auto;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .strategies-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+  }
+  
+  .strategy-item {
+    display: flex;
+    align-items: flex-start;
+    background-color: #ffe8de;
+    border-radius: 30px;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .strategy-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    background-color: #ffdbcb;
+  }
+  
+  .strategy-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.6s ease;
+    z-index: 1;
+  }
+  
+  .strategy-item:hover::after {
+    left: 100%;
+  }
+  
+  .strategy-item:active {
+    transform: translateY(0);
+    background-color: #ffd0bc;
+  }
+  
+  .strategy-number {
+    background-color: #ffcdb8;
+    color: #0a3e7a;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+    flex-shrink: 0;
+    margin-top: 5px;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+  
+  .strategy-item:hover .strategy-number {
+    background-color: #0a3e7a;
+    color: white;
+    transform: scale(1.1);
+  }
+  
+  .strategy-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .strategy-title {
+    color: #0a3e7a;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  
+  .strategy-description {
+    color: #555;
+    font-size: 0.9rem;
+  }
+  
+  /* Remove button styles that are no longer needed */
+  /* Add a subtle arrow indicator on hover */
+  .strategy-content::after {
+    content: '→';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    color: #0a3e7a;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .strategy-item:hover .strategy-content::after {
+    opacity: 1;
+    right: 0;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .content-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .character-container {
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+    
+    .pointing-character::after {
+      top: auto;
+      right: auto;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%) rotate(90deg);
+    }
+    
+    .strategies-container {
+      width: 100%;
+    }
+  }
+  
+  /* Animation for the character */
+  @keyframes slight-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .pointing-character {
+    animation: slight-bounce 4s ease-in-out infinite;
+  }

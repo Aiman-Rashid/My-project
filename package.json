@@ -16,22 +16,17 @@
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
     "bootstrap": "^5.3.5",
-<<<<<<< HEAD
     "canvas-confetti": "^1.9.3",
     "font-awesome": "^4.7.0",
-=======
->>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
     "framer-motion": "^12.9.2",
     "lottie-react": "^2.4.1",
+    "lucide-react": "^0.507.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-lottie": "^1.2.10",
     "react-router-dom": "^7.5.0",
-<<<<<<< HEAD
     "react-toastify": "^11.0.5",
-=======
->>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
     "string-similarity": "^4.0.4"
   },
   "devDependencies": {

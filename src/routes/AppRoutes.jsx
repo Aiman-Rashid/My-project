@@ -10,10 +10,11 @@ import Articulation from '../pages/Articulation';
 import ArticulationIntro from '../pages/ArticulationIntro';
 import SoundIntroPage from '../pages/SoundIntroPage'; 
 import PSoundAGame from '../pages/Sounds/PSoundAGame';
-<<<<<<< HEAD
-
-=======
->>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
+import FluencyExercisesPage from "../pages/FluencyExercisesPage";
+import TurtleTalkPage from "../pages/TurtleTalkPage";
+import BreathingPracticePage from "../pages/BreathingPracticePage";
+import PauseAndPlanPage from "../pages/PauseAndPlanPage"; 
+import MirrorSpeakingPage from "../pages/MirrorSpeakingPage";
 function AppRoutes() {
   return (
     <Routes>
@@ -29,10 +30,15 @@ function AppRoutes() {
       <Route path="/ArticulationIntro" element={<ArticulationIntro />} />
       <Route path="/ArticulationGame/:soundId" element={<SoundIntroPage />} />
       <Route path="/ArticulationGame/partice/:soundId" element={<PSoundAGame />} />
-<<<<<<< HEAD
-    
-=======
->>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b
+      
+
+
+
+      <Route path="/fluency" element={<FluencyExercisesPage />} />
+      <Route path="/turtle-talk" element={<TurtleTalkPage />} />
+      <Route path="/breathing-practice" element={<BreathingPracticePage />} />
+      <Route path="/pause-and-plan" element={<PauseAndPlanPage />} /> {/* ✅ */}
+      <Route path="/mirror-speaking" element={<MirrorSpeakingPage />} />
     </Routes>
   );
 }

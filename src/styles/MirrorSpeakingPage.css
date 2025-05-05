@@ -1,0 +1,414 @@
+/* Main container */
+.mirror-speaking-container {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #a1c4fd 0%, #c2e9fb 100%);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Comic Sans MS', 'Bubblegum Sans', cursive;
+    padding: 20px;
+  }
+  
+  /* Background animations */
+  .background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .floating-star {
+    position: absolute;
+    color: #FFD700;
+    font-size: 20px;
+    animation: float-up 3s linear infinite;
+    opacity: 0.7;
+  }
+  
+  .star-icon {
+    animation: twinkle 1s ease-in-out infinite alternate;
+  }
+  
+  .confetti {
+    position: absolute;
+    top: -10px;
+    animation: fall-down 3s linear forwards;
+    transform: rotate(45deg);
+  }
+  
+  /* Mirror content */
+  .mirror-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Title styling */
+  .mirror-title {
+    color: #4a4a9c;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .bounce {
+    animation: bounce 0.5s ease;
+  }
+  
+  .mirror-emoji {
+    font-size: 3rem;
+    margin: 0 10px;
+  }
+  
+  .magic-icon {
+    color: #9966CC;
+    animation: sparkle 2s infinite;
+  }
+  
+  /* Mirror card */
+  .mirror-card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    border: 5px solid #ffd166;
+  }
+  
+  /* Mirror camera component styling */
+  .mirror-camera-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .camera-frame {
+    position: relative;
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  
+  .mirror-video {
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    border-radius: 15px;
+    transform: scaleX(-1); /* Mirror effect */
+    background-color: #f0f0f0;
+  }
+  
+  .camera-error-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #ff6b6b;
+  }
+  
+  .camera-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  .overlay-decoration {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation: pulse 2s infinite alternate;
+  }
+  
+  .top-left {
+    top: 10px;
+    left: 10px;
+    border-top-left-radius: 0;
+    background-color: rgba(255, 209, 102, 0.5);
+  }
+  
+  .top-right {
+    top: 10px;
+    right: 10px;
+    border-top-right-radius: 0;
+    background-color: rgba(106, 137, 204, 0.5);
+  }
+  
+  .bottom-left {
+    bottom: 10px;
+    left: 10px;
+    border-bottom-left-radius: 0;
+    background-color: rgba(238, 108, 77, 0.5);
+  }
+  
+  .bottom-right {
+    bottom: 10px;
+    right: 10px;
+    border-bottom-right-radius: 0;
+    background-color: rgba(152, 230, 152, 0.5);
+  }
+  
+  /* Instruction container */
+  .instruction-container {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f7f7;
+    border-radius: 15px;
+    border: 3px dashed #6a89cc;
+    width: 100%;
+  }
+  
+  .instruction-title {
+    color: #6a89cc;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .speech-prompt {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+  
+  .speech-text {
+    color: #ef5777;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    animation: wave 2s infinite;
+  }
+  
+  /* Speak button */
+  .speak-button {
+    background-color: #6a89cc;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 0 #4a5e8c;
+    font-family: 'Comic Sans MS', 'Bubblegum Sans', cursive;
+  }
+  
+  .speak-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 #4a5e8c;
+  }
+  
+  .speak-button:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #4a5e8c;
+  }
+  
+  .speak-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .mic-icon {
+    font-size: 1.5rem;
+  }
+  
+  .speak-button.listening {
+    animation: pulse-button 1s infinite alternate;
+    background-color: #ef5777;
+    box-shadow: 0 5px 0 #d63031;
+  }
+  
+  /* Feedback styles */
+  .feedback-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    width: 100%;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .feedback-container.correct {
+    background-color: #c8f7dc;
+    border: 2px solid #0be881;
+  }
+  
+  .feedback-container.incorrect {
+    background-color: #ffd8d8;
+    border: 2px solid #ff6b6b;
+  }
+  
+  .feedback-message {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .feedback-icon {
+    font-size: 2rem;
+  }
+  
+  .happy-icon {
+    color: #0be881;
+    animation: bounce 1s infinite;
+  }
+  
+  .sad-icon {
+    color: #ff6b6b;
+    animation: shake 0.5s infinite;
+  }
+  
+  /* Animations */
+  @keyframes float-up {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-50px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes fall-down {
+    0% {
+      transform: translateY(-10px) rotate(45deg);
+    }
+    100% {
+      transform: translateY(100vh) rotate(225deg);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+  
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    75% {
+      transform: translateX(5px);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 0.7;
+      transform: scale(1.1);
+    }
+  }
+  
+  @keyframes sparkle {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.2);
+    }
+  }
+  
+  @keyframes twinkle {
+    0% {
+      opacity: 0.5;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+  
+  @keyframes wave {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-7px);
+    }
+  }
+  
+  @keyframes pulse-button {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.05);
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .mirror-title {
+      font-size: 2rem;
+    }
+    
+    .speech-prompt {
+      font-size: 1.5rem;
+    }
+    
+    .speak-button {
+      padding: 12px 25px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .mirror-title {
+      font-size: 1.8rem;
+    }
+    
+    .instruction-title {
+      font-size: 1.3rem;
+    }
+    
+    .speech-prompt {
+      font-size: 1.3rem;
+    }
+  }

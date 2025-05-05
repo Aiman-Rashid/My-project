@@ -1,0 +1,276 @@
+/* Scoped CSS for Pause and Plan exercise */
+/* All class names prefixed with 'pause-plan-' to avoid conflicts */
+
+/* Main container styles */
+.pause-plan-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #e6f0ff;
+    padding: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Game card styles - more compact */
+  .pause-plan-game-card {
+    background-color: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 1.25rem;
+    max-width: 96%;
+    width: 40rem;
+    height: auto;
+    max-height: 90vh;
+    text-align: center;
+    border: 6px solid #fcd34d;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Header with title and animal */
+  .pause-plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  
+  .pause-plan-title-section {
+    text-align: left;
+    flex: 1;
+  }
+  
+  /* Title styles - smaller */
+  .pause-plan-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin: 0;
+    color: #8b5cf6;
+  }
+  
+  /* Instructions - more compact */
+  .pause-plan-instructions {
+    margin: 0.25rem 0 0 0;
+  }
+  
+  .pause-plan-description {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0;
+  }
+  
+  /* Words display - more compact */
+  .pause-plan-words-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+  
+  .pause-plan-word {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    background-color: #dbeafe;
+    transition: all 0.3s ease;
+  }
+  
+  .pause-plan-word-active {
+    background-color: #4ade80;
+    transform: scale(1.25);
+  }
+  
+  /* Feedback display - more compact */
+  .pause-plan-feedback {
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+    border-radius: 0.75rem;
+    min-height: 2.5rem;
+  }
+  
+  .pause-plan-feedback-success {
+    background-color: #bbf7d0;
+    color: #166534;
+  }
+  
+  .pause-plan-feedback-retry {
+    background-color: #fed7aa;
+    color: #9a3412;
+  }
+  
+  /* Button container for horizontal layout */
+  .pause-plan-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: auto;
+    flex-wrap: wrap;
+  }
+  
+  /* Button styles - smaller */
+  .pause-plan-button {
+    font-size: 1.25rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: none;
+    cursor: pointer;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    margin: 0.5rem 0;
+  }
+  
+  .pause-plan-button:hover {
+    transform: translateY(-3px);
+  }
+  
+  .pause-plan-button:active {
+    transform: translateY(0);
+  }
+  
+  .pause-plan-button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .pause-plan-listen-button {
+    background-color: #8b5cf6;
+    color: white;
+  }
+  
+  .pause-plan-listen-button:hover {
+    background-color: #7c3aed;
+  }
+  
+  .pause-plan-speak-button {
+    background-color: #ec4899;
+    color: white;
+  }
+  
+  .pause-plan-speak-button:hover {
+    background-color: #db2777;
+  }
+  
+  .pause-plan-button-disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+  }
+  
+  .pause-plan-button-disabled:hover {
+    transform: translateY(0);
+    background-color: #9ca3af;
+  }
+  
+  /* Animal character - more compact */
+  .pause-plan-animal-character {
+    margin-left: 1rem;
+  }
+  
+  .pause-plan-animal-emoji {
+    font-size: 3rem;
+    animation: pausePlanBounce 2s infinite;
+  }
+  
+  /* Star styling */
+  .pause-plan-star {
+    position: absolute;
+    color: #fcd34d;
+    animation: pausePlanPulse 2s infinite;
+    z-index: 10;
+  }
+  
+  /* Confetti container and items */
+  .pause-plan-confetti-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+  }
+  
+  .pause-plan-confetti {
+    position: absolute;
+    animation: pausePlanFall 3s linear forwards;
+  }
+  
+  /* Animations - all renamed with pausePlan prefix to avoid conflicts */
+  @keyframes pausePlanBounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes pausePlanPulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.2);
+    }
+  }
+  
+  @keyframes pausePlanFall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg);
+    }
+  }
+  
+  /* Animation classes */
+  .pause-plan-bounce-emoji {
+    display: inline-block;
+    animation: pausePlanBounce 2s infinite;
+  }
+  
+  .pause-plan-pulse-emoji {
+    display: inline-block;
+    animation: pausePlanPulse 2s infinite;
+    margin-right: 0.5rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-height: 600px) {
+    .pause-plan-game-card {
+      padding: 1rem;
+    }
+    
+    .pause-plan-title {
+      font-size: 1.5rem;
+    }
+    
+    .pause-plan-word {
+      font-size: 1.25rem;
+      padding: 0.5rem;
+    }
+    
+    .pause-plan-feedback {
+      font-size: 1rem;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+    }
+    
+    .pause-plan-button {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+    
+    .pause-plan-animal-emoji {
+      font-size: 2.5rem;
+    }
+  }
