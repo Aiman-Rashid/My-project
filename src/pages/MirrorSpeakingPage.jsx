@@ -2,41 +2,84 @@ import { useState, useEffect } from "react";
 import MirrorCamera from "../components/excercise/MirrorCamera.jsx";
 import { FaRegSmile, FaSadTear, FaMicrophone, FaMagic, FaStar } from "react-icons/fa";
 import "../styles/MirrorSpeakingPage.css";
+import { useTranslation } from "react-i18next";
 
 const MirrorSpeakingPage = () => {
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
+
+  const sentences = {
+    en: [
+      "Good morning!",
+      "I brush my teeth.",
+      "I eat breakfast.",
+      "I go to school.",
+      "I like to read books.",
+      "I play with my friends.",
+      "I drink water.",
+      "I do my homework.",
+      "I watch cartoons.",
+      "Good night!"
+    ],
+    ur: [
+      "صبح بخیر!",
+      "میں اپنے دانت صاف کرتا ہوں۔",
+      "میں ناشتہ کرتا ہوں۔",
+      "میں سکول جاتا ہوں۔",
+      "مجھے کتابیں پڑھنا پسند ہے۔",
+      "میں اپنے دوستوں کے ساتھ کھیلتا ہوں۔",
+      "میں پانی پیتا ہوں۔",
+      "میں اپنا ہوم ورک کرتا ہوں۔",
+      "میں کارٹون دیکھتا ہوں۔",
+      "شب بخیر!"
+    ]
+  };
+
   const [isListening, setIsListening] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [isCorrect, setIsCorrect] = useState(null);
   const [showStars, setShowStars] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [bounceTitle, setBounceTitle] = useState(false);
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
 
-  // Add bounce animation to title periodically
+  const getCurrentSentence = () => {
+    return sentences[currentLanguage]?.[currentSentenceIndex] || sentences.en[currentSentenceIndex];
+  };
+
+  const checkMatch = (spoken, target) => {
+    const cleanSpoken = spoken.replace(/[^\w\s]|_/g, "").toLowerCase().trim();
+    const cleanTarget = target.replace(/[^\w\s]|_/g, "").toLowerCase().trim();
+    return cleanSpoken.includes(cleanTarget);
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setBounceTitle(true);
       setTimeout(() => setBounceTitle(false), 1000);
     }, 5000);
-    
     return () => clearInterval(interval);
   }, []);
 
-  // Function to trigger confetti on success
+  useEffect(() => {
+    setProgress(((currentSentenceIndex) / sentences.en.length) * 100);
+  }, [currentSentenceIndex]);
+
   const triggerConfetti = () => {
     setShowConfetti(true);
     setTimeout(() => setShowConfetti(false), 3000);
   };
 
-  // Speech recognition function
   const startSpeechRecognition = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert("Speech Recognition not supported in this browser.");
+      alert(t('mirrorSpeaking.feedback.error'));
       return;
     }
 
     const recognition = new SpeechRecognition();
-    recognition.lang = "en-US";
+    recognition.lang = currentLanguage === 'ur' ? 'ur-PK' : 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
@@ -45,15 +88,29 @@ const MirrorSpeakingPage = () => {
     setShowStars(true);
 
     recognition.onresult = (event) => {
-      const spoken = event.results[0][0].transcript.toLowerCase().trim();
+      const spoken = event.results[0][0].transcript;
+      const currentSentence = getCurrentSentence();
       console.log("You said:", spoken);
 
-      if (spoken.includes("good morning")) {
-        setFeedbackMessage("✅ Great job! You said: 'Good morning'");
+      if (checkMatch(spoken, currentSentence)) {
+        setFeedbackMessage(t('mirrorSpeaking.feedback.correct', { sentence: currentSentence }));
         setIsCorrect(true);
         triggerConfetti();
+        
+        setTimeout(() => {
+          if (currentSentenceIndex < sentences.en.length - 1) {
+            setCurrentSentenceIndex(currentSentenceIndex + 1);
+            setFeedbackMessage("");
+            setIsCorrect(null);
+          } else {
+            setFeedbackMessage(t('mirrorSpeaking.feedback.completed'));
+          }
+        }, 3000);
       } else {
-        setFeedbackMessage(`❌ Oops! You said: "${spoken}". Try again!`);
+        setFeedbackMessage(t('mirrorSpeaking.feedback.incorrect', { 
+          spoken: spoken, 
+          sentence: currentSentence 
+        }));
         setIsCorrect(false);
       }
 
@@ -63,15 +120,14 @@ const MirrorSpeakingPage = () => {
 
     recognition.onerror = (event) => {
       console.error("Speech recognition error:", event.error);
-      setFeedbackMessage("Error recognizing speech. Please try again.");
+      setFeedbackMessage(t('mirrorSpeaking.feedback.error'));
       setIsListening(false);
       setShowStars(false);
     };
   };
 
   return (
-    <div className="mirror-speaking-container">
-      {/* Background animations */}
+    <div className="mirror-speaking-container" dir={currentLanguage === 'ur' ? 'rtl' : 'ltr'}>
       <div className="background-animation">
         {showStars && Array(20).fill().map((_, i) => (
           <div key={i} className="floating-star" style={{
@@ -95,9 +151,9 @@ const MirrorSpeakingPage = () => {
       </div>
 
       <div className="mirror-content">
-        <h1 className={`mirror-title ${bounceTitle ? 'bounce' : ''}`}>
+        <h1 className={`mirror-title ${currentLanguage === 'ur' ? 'urdu-title' : ''}`}>
           <span className="magic-icon"><FaMagic /></span>
-          <span className="mirror-emoji">🪞</span> Mirror Speaking
+          <span className="mirror-emoji">🪞</span> {t('mirrorSpeaking.title')}
           <span className="magic-icon"><FaMagic /></span>
         </h1>
 
@@ -105,9 +161,11 @@ const MirrorSpeakingPage = () => {
           <MirrorCamera />
           
           <div className="instruction-container">
-            <h2 className="instruction-title">Look in the mirror and say:</h2>
+            <h2 className="instruction-title">{t('mirrorSpeaking.lookInMirror')}</h2>
             <p className="speech-prompt">
-              <span className="speech-text">"Good morning!"</span>
+              <span className={`speech-text ${currentLanguage === 'ur' ? 'urdu-text' : ''}`}>
+                "{getCurrentSentence()}"
+              </span>
             </p>
           </div>
 
@@ -117,7 +175,7 @@ const MirrorSpeakingPage = () => {
             disabled={isListening}
           >
             <FaMicrophone className="mic-icon" />
-            {isListening ? "I'm listening..." : "Tap to speak!"}
+            {isListening ? t('mirrorSpeaking.listenButton.listening') : t('mirrorSpeaking.listenButton.default')}
           </button>
 
           {feedbackMessage && (

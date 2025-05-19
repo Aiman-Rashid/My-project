@@ -1,24 +1,33 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 import Lottie from "lottie-react";
-import animationData from "../../assets/Animation.json";
+import animationData from "../../assets/Animation-withoutTxt.json";
 import { speakText } from "../../utils/tts";
 
 const HeroSection = () => {
   const navigate = useNavigate();
   const lottieRef = useRef();
+  const { t, i18n } = useTranslation();
 
   const playAnimationAndSpeak = () => {
     lottieRef.current?.play();
-    speakText("Welcome to our fun speech therapy app! Click me anytime to hear a friendly greeting.", () => {
+    if(i18n.dir() === 'rtl'){
+       speakText(("Khush Aamdeed"), () => {
+      lottieRef.current?.pause();
+    });}
+    else{
+      
+    speakText(("hello"), () => {
       lottieRef.current?.pause();
     });
+  }
+   
   };
 
   useEffect(() => {
     playAnimationAndSpeak();
     return () => {
-      // Clean up animation on unmount
       lottieRef.current?.destroy();
     };
   }, []);
@@ -27,20 +36,22 @@ const HeroSection = () => {
     <section className="hero-section home1" id="home" aria-labelledby="hero-heading">
       <div className="hero-content">
         <h1 id="hero-heading" className="main-headline animate-text">
-          <span className="highlight">Speech Therapy</span><br />
-          <span className="fun-playful">Made Fun & Playful!</span>
+          <span className="highlight">{t("hero.title1")}</span><br />
+          <span className="fun-playful">{t("hero.title2")}</span>
         </h1>
         <p className="sub-headline animate-text-delay">
-          Empowering children through interactive speech therapy exercises and engaging activities that make learning fun and effective.
+          {t("hero.subtitle")}
         </p>
-        
+
         <div className="cta-container">
           <button 
             className="get-started-btn" 
             onClick={() => navigate('/login')}
-            aria-label="Start your speech therapy journey"
+            aria-label={t("hero.ctaLabel")}
           >
-            Start Your Journey <span className="btn-icon" aria-hidden="true">→</span>
+           {t("hero.cta")} <span className="btn-icon" aria-hidden="true">
+  {i18n.dir() === 'rtl' ? '←' : '→'}
+</span>
           </button>
         </div>
       </div>
@@ -58,7 +69,7 @@ const HeroSection = () => {
               className="lottie-animation"
               role="button"
               tabIndex="0"
-              aria-label="Interactive character - click to hear greeting"
+              aria-label={t("hero.animationAria")}
               style={{ 
                 cursor: "pointer", 
                 maxWidth: "300px",

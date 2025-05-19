@@ -3,15 +3,44 @@
 
 /* Main container styles */
 .pause-plan-container {
+
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh; /* Full viewport height */
-    background-color: #e6f0ff;
-    padding: 0.5rem;
-    position: relative;
-    overflow: hidden;
+    padding: 20px;
+    max-width: 100% !important; 
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: #fff;
+     /* Background properties */
+    background-image: url("/assets/img/lion.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Optional: keeps bg fixed during scrolling */
+    
+    /* Layout properties */
+    width: 100%;
+    min-height: 100vh; /* Use only one min-height definition */
+    padding: 20px;
+    
+    /* Flex properties */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    
+    /* Text properties */
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    
+    /* Reset properties */
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden; 
   }
   
   /* Game card styles - more compact */
@@ -274,3 +303,114 @@
       font-size: 2.5rem;
     }
   }
+
+
+  /* Add these to your existing CSS */
+
+/* Speech prompt styling */
+.speech-prompt {
+  font-size: 1.8rem;
+  margin: 0;
+  min-height: 3rem; /* Prevent layout shift */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  overflow: hidden;
+}
+
+.speech-text {
+  color: #ef5777;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  animation: wave 2s infinite;
+  word-break: break-word; /* Prevent overflow */
+}
+
+/* Cursor animation */
+.cursor {
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .speech-prompt {
+    font-size: 1.5rem;
+    min-height: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .speech-prompt {
+    font-size: 1.3rem;
+    min-height: 2.2rem;
+  }
+  
+  .mirror-card {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+
+.pause-plan-urdu-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+  direction: rtl;
+  font-family: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", serif;
+  font-size: 1.25rem;
+} 
+
+ .pause-plan-word-urdu {
+  margin: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.urdu.pause-plan-title-section {
+  margin-right: 1rem;
+}
+
+
+
+.urdu .pause-plan-title-section{
+  text-align: right;
+  margin-right: 20px;
+}
+
+.urdu .pause-plan-description {
+    font-size: 1.2rem;
+}
+
+
+/* For RTL (Urdu) */
+.pause-plan-words-container[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Urdu-specific word styling (optional) */
+.pause-plan-word-urdu {
+  font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', sans-serif; /* Urdu-friendly fonts */
+  letter-spacing: 0; /* Urdu doesn't need letter spacing */
+}
+
+/* Bounce animation (works for both LTR/RTL) */
+.pause-plan-word-active {
+  animation: bounce 0.5s;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}

@@ -1,0 +1,233 @@
+{
+
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "features": "Features",
+    "reviews": "Reviews",
+    "blog": "Blog"
+  },
+ "hero": {
+    "greeting": "HELLO!",
+    "title1": "Speech Therapy",
+    "title2": "Made Fun & Playful!",
+    "subtitle": "Empowering children through interactive speech therapy exercises and engaging activities that make learning fun and effective.",
+    "cta": "Start Your Journey ",
+    "ctaLabel": "Start your speech therapy journey",
+    "animationAria": "Interactive character - click to hear greeting"
+  },
+ "about": {
+  "title": "Why Choose Us?",
+  "features": [
+    {
+      "icon": "🧩",
+      "title": "Child-Focused Approach",
+      "description": "Personalized therapy plans tailored to each child's needs"
+    },
+    {
+      "icon": "🎮",
+      "title": "Interactive Learning",
+      "description": "Engaging games and activities that make therapy enjoyable"
+    },
+    {
+      "icon": "📈",
+      "title": "Track Progress",
+      "description": "Monitor your child's development with detailed progress reports"
+    }
+  ]
+},
+"featuresSection": {
+  "title": "Our Features",
+  "features": [
+    {
+      "icon": "🎯",
+      "title": "Speech Exercises",
+      "description": "Interactive exercises designed by speech therapy experts"
+    },
+    {
+      "icon": "📚",
+      "title": "Tutorial Videos",
+      "description": "Step-by-step tutorials to improve speech"
+    },
+    {
+      "icon": "📊",
+      "title": "Progress Tracking",
+      "description": "Monitor improvement with detailed analytics"
+    }
+  ]
+},
+"reviewsSection": {
+  "title": "What Parents Say",
+  "reviews": [
+    {
+      "stars": "⭐⭐⭐⭐⭐",
+      "text": "Amazing improvement in my child's speech development!",
+      "reviewer": "- Sarah M."
+    },
+    {
+      "stars": "⭐⭐⭐⭐⭐",
+      "text": "The interactive exercises make therapy fun and engaging.",
+      "reviewer": "- John D."
+    }
+  ]
+},
+"blogSection": {
+  "title": "Latest Blog Posts",
+  "posts": [
+    {
+      "date": "March 15, 2024",
+      "title": "Essential Speech Development Tips",
+      "description": "Discover effective strategies to support your child's speech development journey."
+    },
+    {
+      "date": "March 10, 2024",
+      "title": "Fun Language Learning Games",
+      "description": "Engaging activities that make speech therapy practice enjoyable for kids."
+    },
+    {
+      "date": "March 5, 2024",
+      "title": "Parent's Guide to Speech Therapy",
+      "description": "Everything you need to know about supporting your child through speech therapy."
+    }
+  ]
+},
+"common": {
+  "readMore": "Read More →"
+},
+"footer": {
+  "quickLinks": "Quick Links",
+  "contactUs": "Contact Us",
+  "email": "Email",
+  "phone": "Phone",
+  "rights": "© 2025 Kid Therapy. All rights reserved."
+},
+
+
+
+
+
+
+
+"login": {
+  "title": "Sign In",
+  "subtitle": "We are happy to have you back.",
+  "emailPlaceholder": "Email",
+  "passwordPlaceholder": "Password",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot password?",
+  "signInButton": "Sign In",
+  "noAccount": "Don't have an account?",
+  "signUpLink": "SIGN UP"
+},
+
+
+"auth": {
+  "signupTitle": "Sign Up",
+  "signupSubtitle": "Create your account",
+  "username": "Username",
+  "email": "Email",
+  "password": "Password",
+  "agreeTerms": "I agree to the Terms & Conditions",
+  "signupButton": "Sign Up",
+  "haveAccount": "Already have an account?",
+  "signinLink": "SIGN IN"
+},
+"resetPassword": {
+  "title": "Reset Your Password",
+  "subtitle": "Enter your new password below",
+  "newPassword": "New Password",
+  "confirmPassword": "Confirm Password",
+  "button": "Reset Password",
+  "backToLogin": "Remember your password?",
+  "loginLink": "Back to Login",
+  "error": {
+    "mismatch": "Passwords do not match!",
+    "tooShort": "Password must be at least 6 characters long"
+  }
+},
+
+
+  "forgotPassword": {
+    "title": "Forgot Your Password?",
+    "subtitle": "We have your Back!",
+    "emailPlaceholder": "Email",
+    "sendRecoveryLink": "Send Recovery Link",
+    "rememberPassword": "Remember your password?",
+    "backToLogin": "Back to Login"
+  },
+  
+  "selectProblem": {
+    "selectTitle": "SELECT A SPEECH CHALLENGE",
+    "subTitle": "Let's Make Speech Fun",
+    "learnMore": "Learn More",
+    "start": "Start",
+    "ageDialogTitle": "Child's Age Required",
+    "ageDialogDescription": "Please enter your child's age (2-12 years) to show appropriate articulation exercises.",
+    "ageLabel": "Age in years",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "problems": {
+      "Articulation Disorders": {
+        "title": "Articulation Disorders",
+        "description": "Helps kids learn to say sounds correctly, like \"s\", \"r\", or \"th\". If your child says \"wabbit\" instead of \"rabbit\", this is the right place to start. 💫"
+      },
+      "Stuttering (Fluency Disorders)": {
+        "title": "Stuttering (Fluency Disorders)",
+        "description": "Exercises for smoother, more confident speech. If your child repeats sounds like 'b-b-ball', this section can help them."
+      }
+    }
+  },
+   "pausePlan": {
+    "title": "Pause and Plan Game !",
+    "description": "Listen to the words, then say them yourself !",
+    "listenButton": " Listen to Words",
+    "speakingButton": " Focus",
+    "speakButton": " Your Turn!",
+    "feedbackPerfect": "Great job! You said it perfectly!",
+    "feedbackRetry": "Try again! You said: \"{{spokenText}}\"",
+    "notSupported": "Speech Recognition not supported in this browser.",
+    "listening": "Listening...",
+    "couldntHear": "I couldn't hear you. Let's try again!"
+  },
+    
+  
+  "turtle": {
+    "title": "Speak like the turtle's friend",
+    "next": "🎯 Next Sentence",
+    "restart": "🎯 Restart",
+    "hearAgain": "🔊 Hear Again",
+    "speakNow": "Speak Now",
+    "listening": "Listening...",
+    "correct": "✅ Great job! You said it perfectly!",
+    "tryAgain": "❌ Almost! Try again. You said: \"{{said}}\""
+  },
+  
+
+   "mirrorSpeaking": {
+    "title": "MIRROR SPEAKING",
+    "lookInMirror": "Look in the mirror and say",
+    "listenButton": {
+      "default": "Tap to speak!",
+      "listening": "I'm listening..."
+    },
+    "feedback": {
+      "correct": "✅ Great job! You said: \"{{sentence}}\"",
+      "incorrect": "❌ Oops! You said: \"{{spoken}}\". Try saying \"{{sentence}}\"",
+      "completed": "🎉 Congratulations! You completed all sentences!",
+      "error": "Error recognizing speech. Please try again."
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

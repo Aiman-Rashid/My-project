@@ -2,68 +2,95 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
+  useMediaQuery,
+  useTheme,
+  Box,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import "../styles/FluencyExercisesPage.css";
+import {fluencyExercisesTypeData,fluencyExercisesTypeDataUrdu} from "../data/fluencyExercisesTypeData";
+
 
 export default function FluencyExercisesPage() {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const { i18n } = useTranslation();
+  const isUrdu = i18n.language === "ur";
 
-  // Your original exercises content
-  const exercises = [
-    {
-      title: "Turtle Talk",
-      description: "Speak slowly like a turtle to practice calm, smooth speech.",
-      action: () => navigate("/turtle-talk"),
-    },
-    {
-      title: "Breathing Practice",
-      description: "Take a deep breath and exhale while saying a short word or sentence.",
-      action: () => navigate("/breathing-practice"),
-    },
-    {
-      title: "Pause and Plan",
-      description: "Use short pauses between phrases. Practice slow talking with breaks.",
-      action: () => navigate("/pause-and-plan"),
-    },
-    {
-      title: "Mirror Speaking",
-      description: "Speak in front of a mirror to see how your mouth moves.",
-      action: () => navigate("/mirror-speaking"),
-    },
-  
-  ];
+  const exercises = isUrdu ? fluencyExercisesTypeDataUrdu : fluencyExercisesTypeData;
 
   return (
-    <div className="fluency-page-container">
-      <Typography variant="h2" className="page-title" gutterBottom>
-        Stuttering (Fluency Disorder) Exercises
+    <Box 
+      className={`fluency-page-container`} 
+    >
+      <Typography 
+        variant={isMobile ? "h4" : "h3"} 
+        className="page-title" 
+        gutterBottom
+        sx={{ 
+          px: 2,
+          textAlign: 'center',
+          wordBreak: 'break-word',
+          color: isUrdu ? "#2e7d32" : "primary.main"
+        }}
+      >
+        {isUrdu ? "لکنت کی مشقیں" : "STUTTERING EXERCISES"}
       </Typography>
 
-      <div className="content-container">
-        {/* Left side: Cartoon character pointing to exercises */}
-        <div className="character-container">
-          <div className="pointing-character">
-            <img src="/src/assets/img/another.jpg" alt="Cartoon boy" className="character-image" />
-          </div>
-        </div>
+      <Box className="content-container">
+        {!isMobile && (
+          <Box className="character-container">
+            <Box className="pointing-character">
+              <img 
+                src="assets/img/Boy.png" 
+                alt="Cartoon boy" 
+                className="character-image" 
+                style={{ 
+                  maxWidth: '100%',
+                  height: 'auto',
+                  objectFit: 'contain'
+                }}
+              />
+            </Box>
+          </Box>
+        )}
 
-        {/* Right side: Exercise list using the strategy styling */}
-        <div className="strategies-container">
+        <Box className="strategies-container">
           {exercises.map((exercise, index) => (
-            <div 
+            <Box 
               key={index} 
               className="strategy-item"
-              onClick={exercise.action}
+              onClick={() => navigate(exercise.path)}
+              sx={{
+                width: '100%',
+                maxWidth: '600px',
+                mx: 'auto',
+                textAlign: isUrdu ? "right" : "left",
+                flexDirection:isUrdu?"row-reverse":"row",
+                
+              }}
             >
-              <div className="strategy-number">{index + 1}</div>
-              <div className="strategy-content">
-                <div className="strategy-title">{exercise.title}</div>
-                <div className="strategy-description">{exercise.description}</div>
-              </div>
-            </div>
+              <Box className="strategy-number">{index + 1}</Box>
+              <Box className="strategy-content">
+                <Typography 
+                  variant="h6" 
+                  className="strategy-title" 
+                  sx={{ fontWeight: 600 }}
+                >
+                  {exercise.title}
+                </Typography>
+                <Typography 
+                  variant="body2" 
+                  className="strategy-description"
+                >
+                  {exercise.description}
+                </Typography>
+              </Box>
+            </Box>
           ))}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 }

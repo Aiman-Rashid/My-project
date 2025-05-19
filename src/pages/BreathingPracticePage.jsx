@@ -1,34 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { Cloud, Sun, Moon } from "lucide-react";
 import "../styles/BreathingPracticePage.css";
+import { useTranslation } from "react-i18next";
 
 const BreathingPracticePage = () => {
-  const [tickAudio, setTickAudio] = useState(null);
-  const [secondsLeft, setSecondsLeft] = useState(5);
+
+  const [secondsLeft, setSecondsLeft] = useState(4);
   const [isRunning, setIsRunning] = useState(false);
-  const [phaseText, setPhaseText] = useState("Get Ready! 🧘");
   const [currentPhase, setCurrentPhase] = useState("ready");
   const [scale, setScale] = useState(1);
+  
+  const { t, i18n } = useTranslation();
+  const isUrdu = i18n.language === "ur";
 
-  useEffect(() => {
-    const tick = new Audio("/sounds/tick.mp3");
-    tick.loop = true;
-    setTickAudio(tick);
 
-    // Preload other audios
-    window.breathInAudio = new Audio("/sounds/breath-in.mp3");
-    window.holdAudio = new Audio("/sounds/hold.mp3");
-    window.breatheOutAudio = new Audio("/sounds/breath-out.mp3");
 
-    return () => {
-      tick.pause();
-      tick.src = "";
-    };
-  }, []);
+  // Phase text based on language
+  const getPhaseText = () => {
+    switch(currentPhase) {
+      case "ready":
+        return isUrdu ?  " ! تیار ہو جاؤ" : "Get Ready 🧘";
+      case "in":
+        return isUrdu ? "😮 سانس اندر کھینچیں" : "😮 Breathing In...";
+      case "hold":
+        return isUrdu ? "🤐 سانس روک کر رکھیں" : "🤐 Hold Breath...";
+      case "out":
+        return isUrdu ? " سانس باہر چھوڑیں" : "Breathe Out...";
+      case "complete":
+        return isUrdu ? "🎉 ورزش مکمل ہو گئی!" : "🎉 Exercise Complete!";
+      default:
+        return isUrdu ? "تیار ہو جاؤ! 🧘" : "Get Ready! 🧘";
+    }
+  };
+
+
 
   useEffect(() => {
     if (currentPhase === "in" || currentPhase === "hold") {
-      setScale(1.5);
+      setScale(1.4);
     } else if (currentPhase === "out") {
       setScale(1);
     } else {
@@ -37,40 +46,31 @@ const BreathingPracticePage = () => {
   }, [currentPhase]);
 
   const startBreathingExercise = () => {
-    if (tickAudio) {
-      tickAudio.play();
-    }
+
 
     setIsRunning(true);
-    setPhaseText("😮 Breathing In...");
     setCurrentPhase("in");
-    setSecondsLeft(5);
-    playSound("breatheIn");
-    speakText("Take a deep breath in...");
+    setSecondsLeft(4);
+   
+    speakText(isUrdu ? "گہرا سانس اندر لیں" : "Take a deep breath in...");
 
-    startCountdown(5, () => {
-      setPhaseText("🤐 Hold Breath...");
+    startCountdown(4, () => {
       setCurrentPhase("hold");
-      setSecondsLeft(5);
-      playSound("hold");
-      speakText("Hold your breath...");
+      setSecondsLeft(4);
 
-      startCountdown(5, () => {
-        setPhaseText("🌬 Breathe Out...");
+      speakText(isUrdu ? "اپنی سانس روک کر رکھیں" : "Hold your breath...");
+
+      startCountdown(4, () => {
         setCurrentPhase("out");
-        setSecondsLeft(5);
-        playSound("breatheOut");
-        speakText("Now breathe out slowly...");
+        setSecondsLeft(4);
 
-        startCountdown(5, () => {
-          setPhaseText("🎉 Exercise Complete!");
+        speakText(isUrdu ? "اب آہستہ آہستہ سانس چھوڑیں" : "Now breathe out slowly...");
+
+        startCountdown(4, () => {
           setCurrentPhase("complete");
-          speakText("Great job! You completed the exercise!");
+          speakText(isUrdu ? "بہت اچھا! آپ نے ورزش مکمل کر لی" : "Great job! You completed the exercise!");
 
-          if (tickAudio) {
-            tickAudio.pause();
-            tickAudio.currentTime = 0;
-          }
+
           setIsRunning(false);
         });
       });
@@ -91,25 +91,24 @@ const BreathingPracticePage = () => {
     }, 1000);
   };
 
-  const playSound = (type) => {
-    const soundMap = {
-      breatheIn: window.breathInAudio,
-      hold: window.holdAudio,
-      breatheOut: window.breatheOutAudio,
-    };
 
-    const sound = soundMap[type];
-    if (sound) {
-      sound.currentTime = 0;
-      sound.play();
-    }
-  };
 
-  const speakText = (text) => {
+const speakText = (text) => {
+
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 0.8;
+    utterance.lang = "en-US";
     window.speechSynthesis.speak(utterance);
-  };
+   
+};
+
+
+
+
+
+
+
+
 
   const getPhaseImage = () => {
     switch (currentPhase) {
@@ -134,7 +133,7 @@ const BreathingPracticePage = () => {
               className="icon icon-moon"
               style={{
                 transform: `scale(${scale})`,
-                transition: "transform 0.5s ease-in-out"
+                transition: "transform 0.4s ease-in-out"
               }}
             />
           </div>
@@ -161,15 +160,19 @@ const BreathingPracticePage = () => {
 
   return (
     <div className="breathing-app">
-      <div className="breathing-container">
+      <div className="breathing-container" >
         <div className="header">
-          <h1 className="title">Breathing Buddies</h1>
-          <p className="subtitle">Let's breathe together!</p>
+          <h1 className="title">
+            Breathing Buddies
+          </h1>
+          <p className="subtitle1" >
+            {isUrdu ? "💫آؤ کر دکھائیں" : "Let's breathe together!"}
+          </p>
         </div>
 
         <div className="main-card">
           <div className="phase-text-container">
-            <h2 className="phase-text">{phaseText}</h2>
+            <h2 className="phase-text">{getPhaseText()}</h2>
             {isRunning && <div className="seconds-countdown">{secondsLeft > 0 ? secondsLeft : ""}</div>}
           </div>
 
@@ -179,8 +182,8 @@ const BreathingPracticePage = () => {
 
           {!isRunning && currentPhase === "ready" && (
             <div className="instructions">
-              <p>Follow along with our breathing buddy!</p>
-              <p>We'll breathe in, hold, and breathe out together.</p>
+              <p>{isUrdu ? "ہمارے ساتھ سانس لینے کی مشق کریں" : "Follow along with our breathing buddy!"}</p>
+              <p>{isUrdu ? "ہم مل کر سانس اندر لیں گے، روکیں گے، اور پھر باہر چھوڑیں گے۔" : "We'll breathe in, hold, and breathe out together."}</p>
             </div>
           )}
 
@@ -190,7 +193,10 @@ const BreathingPracticePage = () => {
               disabled={isRunning}
               className={`start-button ${isRunning ? "disabled" : ""}`}
             >
-              {isRunning ? "Keep Going!" : "Start Breathing!"}
+              {isRunning ? 
+                (isUrdu ?"!جاری رکھیں" :  "Keep Going!") : 
+                (isUrdu ? "سانس لینے کی مشق شروع کریں" : "Start Breathing!")
+              }
             </button>
           </div>
         </div>

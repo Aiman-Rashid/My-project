@@ -1,5 +1,7 @@
+// 
 import React, { useState, useEffect } from "react";
 import "../styles/PauseAndPlanKids.css";
+import { useTranslation } from "react-i18next";
 
 const PauseAndPlanKidsPage = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -8,9 +10,43 @@ const PauseAndPlanKidsPage = () => {
   const [bounceWord, setBounceWord] = useState(-1);
   const [stars, setStars] = useState([]);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const [completedSentences, setCompletedSentences] = useState([]);
+    const { t, i18n } = useTranslation();
 
-  const sentenceWords = ["I", "like", "to", "eat", "apples"];
-  const fullSentence = sentenceWords.join(" ");
+const sentences = [
+  {
+    en: ["I", "like", "to", "eat", "apples"],
+    ur: ["میں", "سیب", "کھانا", "پسند", "کرتا", "ہوں"] // Correct Urdu order
+  },
+  {
+    en: ["The", "sun", "is", "shining", "bright"],
+    ur: ["سورج", "تیز", "چمک", "رہا", "ہے"] // Correct Urdu order
+  },
+  {
+    en: ["My", "dog", "likes", "to", "play"],
+    ur: ["میرا", "کتا", "کھیلنا", "پسند", "کرتا", "ہے"] // Correct Urdu order
+  },
+  {
+    en: ["We", "go", "to", "school", "everyday"],
+    ur: ["ہم", "روزانہ", "سکول", "جاتے", "ہیں"] // Correct Urdu order
+  },
+  {
+    en: ["Let's", "read", "a", "book", "together"],
+    ur: ["آؤ", "ایک", "کتاب", "پڑھیں", "مل", "کر"] // Correct Urdu order
+  }
+];
+
+
+
+  const getCurrentSentence = () => {
+    return i18n.language === 'ur' ? sentences[currentSentenceIndex].ur : sentences[currentSentenceIndex].en;
+  };
+
+
+    const getCurrentFullSentence = () => {
+    return getCurrentSentence().join(" ");
+  };
 
   useEffect(() => {
     if (showConfetti) {
@@ -51,9 +87,11 @@ const PauseAndPlanKidsPage = () => {
     setShowSpeakButton(false);
     setStars([]);
 
-    for (let i = 0; i < sentenceWords.length; i++) {
+    const currentSentence = getCurrentSentence();
+    
+    for (let i = 0; i < currentSentence.length; i++) {
       setBounceWord(i);
-      await speakText(sentenceWords[i]);
+      await speakText(currentSentence[i]);
       createStar();
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
@@ -67,7 +105,7 @@ const PauseAndPlanKidsPage = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   
     if (!SpeechRecognition) {
-      setFeedback("Speech Recognition not supported in this browser.");
+      setFeedback(t("pausePlan.notSupported"));
       return;
     }
   
@@ -77,29 +115,43 @@ const PauseAndPlanKidsPage = () => {
     recognition.maxAlternatives = 1;
   
     recognition.start();
-    setFeedback("Listening...");
+setFeedback(t("pausePlan.listening"));
   
     recognition.onresult = (event) => {
       let spokenText = event.results[0][0].transcript.trim().toLowerCase();
       console.log("User said:", spokenText);
   
       const normalize = (text) => text.replace(/\s+/g, " ").trim().toLowerCase();
-      const expectedText = normalize(fullSentence);
+      const expectedText = normalize(getCurrentFullSentence());
   
       if (normalize(spokenText) === expectedText) {
-        setFeedback("Great job! You said it perfectly!");
+     setFeedback(t("pausePlan.feedbackPerfect"));
         setShowConfetti(true);
         for (let i = 0; i < 10; i++) {
           setTimeout(() => createStar(), i * 200);
         }
+        
+        // Mark this sentence as completed
+        setCompletedSentences(prev => [...prev, currentSentenceIndex]);
+        
+        // Move to next sentence or loop back
+        setTimeout(() => {
+          if (currentSentenceIndex < sentences.length - 1) {
+            setCurrentSentenceIndex(currentSentenceIndex + 1);
+          } else {
+            setCurrentSentenceIndex(0);
+          }
+          setShowSpeakButton(false);
+        }, 3000);
       } else {
-        setFeedback(`Try again! You said: "${spokenText}"`);
+       
+setFeedback(t("pausePlan.feedbackRetry", { spokenText }));
       }
     };
   
     recognition.onerror = (event) => {
       console.error("Speech Recognition Error:", event.error);
-      setFeedback("I couldn't hear you. Let's try again!");
+    setFeedback(t("pausePlan.couldntHear"));
     };
   };
 
@@ -141,62 +193,82 @@ const PauseAndPlanKidsPage = () => {
       )}
 
       <div className="pause-plan-game-card">
-        <div className="pause-plan-header">
+        <div className={`pause-plan-header ${i18n.language === 'ur' ? 'urdu' : ''}`}>
           <div className="pause-plan-title-section">
             <h1 className="pause-plan-title">
-              <span className="pause-plan-bounce-emoji">🗣</span> Pause and Plan Game!
+           {i18n.language === 'ur' ? (
+   
+        <span>سوچیں، رکیں، بولیں
+             <span className="pause-plan-bounce-emoji">🗣</span> </span>
+      ) : (
+        <span className="pause-plan-bounce-emoji">🗣
+        <span>Pause and Plan Game</span></span>
+      )}
             </h1>
             <div className="pause-plan-instructions">
-              <p className="pause-plan-description">Listen to the words, then say them yourself!</p>
+            <p className="pause-plan-description">{t("pausePlan.description")}</p>
+             
             </div>
           </div>
           
           <div className="pause-plan-animal-character">
             <div className="pause-plan-animal-emoji">🦁</div>
           </div>
+        
         </div>
 
-        <div className="pause-plan-words-container">
-          {sentenceWords.map((word, index) => (
-            <div
-              key={index}
-              className={`pause-plan-word ${bounceWord === index ? "pause-plan-word-active" : ""}`}
-            >
-              {word}
-            </div>
-          ))}
-        </div>
+
+
+<div 
+  className="pause-plan-words-container"
+  dir={i18n.language === 'ur' ? 'rtl' : 'ltr'} // RTL for Urdu, LTR for others
+>
+  {getCurrentSentence().map((word, index) => (
+    <div
+      key={index}
+      className={`pause-plan-word 
+        ${bounceWord === index ? "pause-plan-word-active" : ""}
+        ${i18n.language === 'ur' ? "pause-plan-word-urdu" : ""}
+      `}
+    >
+      {word}
+    </div>
+  ))}
+</div>
+
 
         {feedback && (
-          <div className={`pause-plan-feedback ${feedback.includes("Great") ? "pause-plan-feedback-success" : "pause-plan-feedback-retry"}`}>
-            {feedback.includes("Great") ? "🎉 " : "🎯 "}
-            {feedback}
-          </div>
+          <div className={`pause-plan-feedback ${feedback.includes(t("pausePlan.feedbackPerfect").split("!")[0]) ? "pause-plan-feedback-success" : "pause-plan-feedback-retry"}`}>
+    {feedback.includes(t("pausePlan.feedbackPerfect").split("!")[0]) ? "🎉 " : "🎯 "}
+    {feedback}
+  </div>
         )}
 
         <div className="pause-plan-buttons-container">
-          <button
-            onClick={startPauseAndPlanExercise}
-            disabled={isRunning}
-            className={`pause-plan-button pause-plan-listen-button ${isRunning ? "pause-plan-button-disabled" : ""}`}
-          >
-            {isRunning ? (
-              <span className="pause-plan-button-content">
-                <span className="pause-plan-bounce-emoji">🔊</span> Speaking...
-              </span>
-            ) : (
-              <span className="pause-plan-button-content">
-                <span>🔊</span> Listen to Words
-              </span>
-            )}
-          </button>
+       <button
+  onClick={startPauseAndPlanExercise}
+  disabled={isRunning}
+  className={`pause-plan-button pause-plan-listen-button ${isRunning ? "pause-plan-button-disabled" : ""}`}
+>
+  {isRunning ? (
+    <span className="pause-plan-button-content">
+      <span className="pause-plan-bounce-emoji">🔊</span> {t("pausePlan.speakingButton")}
+    </span>
+  ) : (
+    <span className="pause-plan-button-content">
+      <span>🔊</span> {t("pausePlan.listenButton")}
+    </span>
+  )}
+</button>
+
+
 
           {showSpeakButton && (
             <button
               onClick={startSpeechRecognition}
               className="pause-plan-button pause-plan-speak-button"
             >
-              <span className="pause-plan-pulse-emoji">🎤</span> Your Turn!
+              <span className="pause-plan-pulse-emoji">🎤</span>   {t("pausePlan.speakButton")}
             </button>
           )}
         </div>

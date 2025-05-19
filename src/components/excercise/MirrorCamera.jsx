@@ -40,12 +40,7 @@ const MirrorCamera = () => {
           muted
           className="mirror-video"
         />
-        <div className="camera-overlay">
-          <div className="overlay-decoration top-left"></div>
-          <div className="overlay-decoration top-right"></div>
-          <div className="overlay-decoration bottom-left"></div>
-          <div className="overlay-decoration bottom-right"></div>
-        </div>
+      
         {cameraError && (
           <div className="camera-error-message">
             <p>Oops! We can't access your camera.</p>

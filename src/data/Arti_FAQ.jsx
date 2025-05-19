@@ -1,4 +1,4 @@
-const faqs = [
+export const faqs = [
     {
       question: "What is articulation?",
       answer: (
@@ -7,8 +7,7 @@ const faqs = [
           <p className="fw-semibold mt-3">Example:</p>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Make a /s/ sound by blowing air through our teeth</li>
-            <li className="list-group-item">Use a short /ʌ/ sound (like “uh”)</li>
-            <li className="list-group-item">End with a /n/ sound using the nose</li>
+         
           </ul>
         </>
       )
@@ -110,6 +109,119 @@ const faqs = [
       )
     }
   ];
-  
-  export default faqs;  // ✅ Very important!
-  
+
+
+
+
+ export const urduFaq = [
+  {
+    question: "تلفظ (آرٹیکولیشن) کیا ہے؟",
+    answer: (
+      <>
+        <p>تلفظ سے مراد ہے کہ ہم بولتے وقت اپنے ہونٹوں، زبان، دانتوں اور منہ کو کیسے حرکت دیتے ہیں تاکہ آوازیں بن سکیں۔</p>
+        <p className="fw-semibold mt-3">مثالیں:</p>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">/س/ کی آواز بنانے کے لیے دانتوں کے درمیان سے ہوا نکالیں.</li>
+        </ul>
+      </>
+    )
+  },
+  {
+    question: "تلفظ کے  مسئلہ (آرٹیکولیشن ڈس آرڈر) کیا ہے؟",
+    answer: (
+      <>
+        <p>یہ ایک عام حالت ہے جب بچہ کچھ مخصوص آوازیں صحیح طرح نہیں بنا پاتا۔ مثلاً وہ "ر" کی جگہ "و" یا "تھ" کی جگہ "س" بولتا ہو۔ یہ خرابی دماغ، منہ یا سماعت کے مسائل سے متعلق نہیں رکتی۔</p>
+      </>
+    )
+  },
+  {
+    question: "بچے تمام آوازیں کس عمر تک سیکھ لیتے ہیں؟",
+    answer: <p>زیادہ تر بچے 4 سے 5 سال کی عمر تک تمام آوازیں بنا لیتے ہیں۔</p>
+  },
+  {
+    question: "تلفظ میں آوازوں کی کیا قسم کی خرابیاں ہو سکتی ہیں؟",
+    answer: (
+      <div className="row g-3">
+        <div className="col-md-6">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h5 className="card-title">تبدیلی</h5>
+           <p className="card-text">ایک آواز کو دوسری سے بدل دینا، جیسے "پانی" کو "تانی" کہنا</p>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h5 className="card-title">حذف کرنا</h5>
+              <p className="card-text">آواز کو چھوڑ دینا، جیسے "کتاب" بولنے کی بجائے صرف "تاب"</p>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h5 className="card-title">مسخ شدہ آواز</h5>
+<p className="card-text">غیر واضح یا بگڑی ہوئی آواز، جیسے "س" کو سیٹی جیسی آواز میں ادا کرنا</p>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className="card shadow-sm">
+            <div className="card-body">
+         <h5 className="card-title">اضافہ کرنا</h5>
+<p className="card-text">لفظ میں اضافی آواز شامل کرنا، مثلاً "کتاب" کو "کتابی" کہنا۔</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  {
+    question: "آوازوں کی عمر کے لحاظ سے ترتیب کیا ہے؟",
+    answer: (
+      <div className="table-responsive">
+        <table className="table table-bordered table-striped">
+          <thead className="table-light">
+            <tr>
+              <th>آوازوں پر عبور کی عمر</th>
+              <th>آوازیں</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2-3 سال</td>
+              <td>پ، ب، م، ن، ہ، و، ت، د، ک، گ، ف، ی، نگ (جیسے "بیٹھنا")</td>
+            </tr>
+            <tr>
+              <td>4 سال</td>
+              <td>و، ل، س، ز، ش، ج (جیسے "جَمپ")، چ (جیسے "چِیز")، ش (جیسے "بھیڑ")</td>
+            </tr>
+            <tr>
+              <td>5-6 سال</td>
+              <td>ر، ش، ژ (جیسے "کشمیر")، تھ (بے آواز جیسے "تھینک یو")، تھ (آواز والا جیسے "وے")</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    )
+  },
+  {
+    question: "تلفظ کی خرابی کی کیا وجہ ہے؟",
+    answer: (
+      <p>
+        تلفظ کی خرابی کی کوئی خاص وجہ نہیں ہوتی۔ اس کا مطلب یہ نہیں کہ آپ کے بچے کے دماغ، اعصاب، ہونٹوں، زبان، دانتوں، جبڑے، پھیپھڑوں یا سماعت میں کوئی مسئلہ ہے۔
+      </p>
+    )
+  },
+  {
+    question: "تلفظ کی خرابی کو کیسے ٹھیک کیا جاتا ہے؟",
+    answer: (
+      <p>
+        تلفظ کی خرابی کو تقریر اور زبان کی تھراپی سے بہتر بنایا جا سکتا ہے۔ ہم تجویز کرتے ہیں کہ آپ کسی اسپیچ تھراپسٹ سے رجوع کریں۔
+      </p>
+    )
+  }
+];
+   

@@ -247,11 +247,6 @@ const SoundData = {
           word: "momo", 
           emoji: "🐵", 
           tip: "🐵 Say 'MO' like a monkey - round lips with a strong M!" 
-        },
-        { 
-          word: "mumu", 
-          emoji: "🐄",      
-          tip: "🐄 Say 'MU' like a cow mooing - strong M sound!" 
         }
       ]
     },
@@ -260,7 +255,7 @@ const SoundData = {
       basket_img: TreasureImg,
       exercises: [
         { 
-          word: "mommy", 
+          word: "mummy", 
           emoji: "👩",  
           tip: "👩 Say 'MOM-MY' with two strong M hums 🎵🎵 at the start!" 
         },
@@ -319,11 +314,6 @@ const SoundData = {
           word: "hoho", 
           emoji: "🎅", 
           tip: "🎅 Say 'HO' like Santa - round lips with strong H!" 
-        },
-        { 
-          word: "huhu", 
-          emoji: "🤔",      
-          tip: "🤔 Say 'HU' like thinking - gentle breath out!" 
         }
       ]
     },
@@ -349,7 +339,145 @@ const SoundData = {
       ]
     }
   },
+  // D Sound (Yellow Light - Tongue Tip)
+  d: {
+    id: "d",
+    category: "yellow",
+    title: "Let's learn the D sound! 🎤",
+    subtitle: "Tap tongue and use your voice! 🎵",
+    voiceText: "Let's learn the D sound!",
+    videoSrc: DSoundVideo,
+    nextRoute: "/ArticulationGame/partice/d",
+    backgroundImage: DSoundBg,
+    sound: PopSound,
+    
+    level1: {
+      animation: BalloonAni,
+      basket_img: BalloonImg,
+      exercises: [
+        { 
+          word: "dd", 
+          emoji: "🥁",  
+          tip: "👅 Tap tongue behind teeth like a drum 🥁! D...D" 
+        },
+        { 
+          word: "ddd", 
+          emoji: "🦯",    
+          tip: "👅 Strong tongue taps like walking sticks 🦯! D...D..D" 
+        }
+      ]
+    },
+    level2: {
+      animation: PenguinAni,
+      basket_img: PenguinImg,
+      exercises: [
+        { 
+          word: "dada", 
+          emoji: "👨",  
+          tip: "👨 Say 'DA' like calling dad - tongue up then down! 👅" 
+        },
+        { 
+          word: "dodo", 
+          emoji: "🦤", 
+          tip: "🦤 Say 'DO' like a dodo bird - strong tongue tap!" 
+        },
+        { 
+          word: "didi", 
+          emoji: "🚲",      
+          tip: "🚲 Say 'DI' like riding a bike - light tongue tap!" 
+        }
+      ]
+    },
+    level3: {
+      animation: TreasureAni,
+      basket_img: TreasureImg,
+      exercises: [
+        { 
+          word: "daddy", 
+          emoji: "👨",  
+          tip: "👨 Say 'DAD-DY' with two tongue taps 👅👅 at the start!" 
+        },
+        { 
+          word: "ladder", 
+          emoji: "🪜",   
+          tip: "🪜 Say 'LAD-DER' - don't forget the D tongue tap 👅 in the middle!" 
+        },
+        { 
+          word: "bed", 
+          emoji: "🛏️",  
+          tip: "🛏️ Say 'BED' with a clear tongue tap 👅 at the end - BE-DING!" 
+        }
+      ]
+    }
+  },
 
+  // N Sound (Yellow Light - Tongue Tip)
+  n: {
+    id: "n",
+    category: "yellow",
+    title: "Let's learn the N sound! 🎤",
+    subtitle: "Tongue up and hum through your nose! 👃",
+    voiceText: "Let's learn the N sound!",
+    videoSrc: NSoundVideo,
+    nextRoute: "/ArticulationGame/partice/n",
+    backgroundImage: NSoundBg,
+    sound: PopSound,
+    
+    level1: {
+      animation: BalloonAni,
+      basket_img: BalloonImg,
+      exercises: [
+        { 
+          word: "nn", 
+          emoji: "👃",  
+          tip: "👅 Tongue up behind teeth, hum through nose 👃! N...N" 
+        },
+        { 
+          word: "nnn", 
+          emoji: "🚂",    
+          tip: "👅 Hum like a train going 'nnn-nnn' 🚂! N...N..N" 
+        }
+      ]
+    },
+    level2: {
+      animation: PenguinAni,
+      basket_img: PenguinImg,
+      exercises: [
+        { 
+          word: "nana", 
+          emoji: "🍌",  
+          tip: "🍌 Say 'NA' like banana - tongue up then hum! 👃" 
+        },
+      
+        { 
+          word: "nini", 
+          emoji: "🛏️",      
+          tip: "🛏️ Say 'NI' like night-night - gentle nose hum!" 
+        }
+      ]
+    },
+    level3: {
+      animation: TreasureAni,
+      basket_img: TreasureImg,
+      exercises: [
+        { 
+          word: "nose", 
+          emoji: "👃",  
+          tip: "👃 Say 'NO-SE' with nose hum 👃 at the start!" 
+        },
+        { 
+          word: "banana", 
+          emoji: "🍌",   
+          tip: "🍌 Say 'BA-NA-NA' - don't forget the N nose hum 👃 in the middle!" 
+        },
+        { 
+          word: "sun", 
+          emoji: "☀️",  
+          tip: "☀️ Say 'SUN' with nose hum 👃 at the end - SU-HUMM!" 
+        }
+      ]
+    }
+  },
 // Continuing from the existing SoundData object...
 
   // W Sound (Green Light - Lips)
@@ -496,149 +624,7 @@ const SoundData = {
     }
   },
 
-  // D Sound (Yellow Light - Tongue Tip)
-  d: {
-    id: "d",
-    category: "yellow",
-    title: "Let's learn the D sound! 🎤",
-    subtitle: "Tap tongue and use your voice! 🎵",
-    voiceText: "Let's learn the D sound!",
-    videoSrc: DSoundVideo,
-    nextRoute: "/ArticulationGame/partice/d",
-    backgroundImage: DSoundBg,
-    sound: PopSound,
-    
-    level1: {
-      animation: BalloonAni,
-      basket_img: BalloonImg,
-      exercises: [
-        { 
-          word: "dd", 
-          emoji: "🥁",  
-          tip: "👅 Tap tongue behind teeth like a drum 🥁! D...D" 
-        },
-        { 
-          word: "ddd", 
-          emoji: "🦯",    
-          tip: "👅 Strong tongue taps like walking sticks 🦯! D...D..D" 
-        }
-      ]
-    },
-    level2: {
-      animation: PenguinAni,
-      basket_img: PenguinImg,
-      exercises: [
-        { 
-          word: "dada", 
-          emoji: "👨",  
-          tip: "👨 Say 'DA' like calling dad - tongue up then down! 👅" 
-        },
-        { 
-          word: "dodo", 
-          emoji: "🦤", 
-          tip: "🦤 Say 'DO' like a dodo bird - strong tongue tap!" 
-        },
-        { 
-          word: "didi", 
-          emoji: "🚲",      
-          tip: "🚲 Say 'DI' like riding a bike - light tongue tap!" 
-        }
-      ]
-    },
-    level3: {
-      animation: TreasureAni,
-      basket_img: TreasureImg,
-      exercises: [
-        { 
-          word: "daddy", 
-          emoji: "👨",  
-          tip: "👨 Say 'DAD-DY' with two tongue taps 👅👅 at the start!" 
-        },
-        { 
-          word: "ladder", 
-          emoji: "🪜",   
-          tip: "🪜 Say 'LAD-DER' - don't forget the D tongue tap 👅 in the middle!" 
-        },
-        { 
-          word: "bed", 
-          emoji: "🛏️",  
-          tip: "🛏️ Say 'BED' with a clear tongue tap 👅 at the end - BE-DING!" 
-        }
-      ]
-    }
-  },
 
-  // N Sound (Yellow Light - Tongue Tip)
-  n: {
-    id: "n",
-    category: "yellow",
-    title: "Let's learn the N sound! 🎤",
-    subtitle: "Tongue up and hum through your nose! 👃",
-    voiceText: "Let's learn the N sound!",
-    videoSrc: NSoundVideo,
-    nextRoute: "/ArticulationGame/partice/n",
-    backgroundImage: NSoundBg,
-    sound: PopSound,
-    
-    level1: {
-      animation: BalloonAni,
-      basket_img: BalloonImg,
-      exercises: [
-        { 
-          word: "nn", 
-          emoji: "👃",  
-          tip: "👅 Tongue up behind teeth, hum through nose 👃! N...N" 
-        },
-        { 
-          word: "nnn", 
-          emoji: "🚂",    
-          tip: "👅 Hum like a train going 'nnn-nnn' 🚂! N...N..N" 
-        }
-      ]
-    },
-    level2: {
-      animation: PenguinAni,
-      basket_img: PenguinImg,
-      exercises: [
-        { 
-          word: "nana", 
-          emoji: "🍌",  
-          tip: "🍌 Say 'NA' like banana - tongue up then hum! 👃" 
-        },
-        { 
-          word: "nono", 
-          emoji: "🙅", 
-          tip: "🙅 Say 'NO' while shaking head - strong nose hum!" 
-        },
-        { 
-          word: "nini", 
-          emoji: "🛏️",      
-          tip: "🛏️ Say 'NI' like night-night - gentle nose hum!" 
-        }
-      ]
-    },
-    level3: {
-      animation: TreasureAni,
-      basket_img: TreasureImg,
-      exercises: [
-        { 
-          word: "nose", 
-          emoji: "👃",  
-          tip: "👃 Say 'NO-SE' with nose hum 👃 at the start!" 
-        },
-        { 
-          word: "banana", 
-          emoji: "🍌",   
-          tip: "🍌 Say 'BA-NA-NA' - don't forget the N nose hum 👃 in the middle!" 
-        },
-        { 
-          word: "sun", 
-          emoji: "☀️",  
-          tip: "☀️ Say 'SUN' with nose hum 👃 at the end - SU-HUMM!" 
-        }
-      ]
-    }
-  },
 
   // K Sound (Red Light - Back Sounds)
   k: {
@@ -677,11 +663,7 @@ const SoundData = {
           emoji: "🦜",  
           tip: "🦜 Say 'KA' like a parrot - back tongue up then down! 👅" 
         },
-        { 
-          word: "koko", 
-          emoji: "🐨", 
-          tip: "🐨 Say 'KO' like a koala - strong back tongue lift!" 
-        },
+       
         { 
           word: "kiki", 
           emoji: "🔑",      
@@ -825,11 +807,6 @@ const SoundData = {
           word: "fofo", 
           emoji: "🤡", 
           tip: "🤡 Say 'FO' like funny - strong lip bite and blow!" 
-        },
-        { 
-          word: "fifi", 
-          emoji: "🧚",      
-          tip: "🧚 Say 'FI' like fairy - gentle lip bite and blow!" 
         }
       ]
     },
@@ -882,108 +859,7 @@ const SoundData = {
     }
   },
 
-  // V Sound (Green Light - Lips)
-  v: {
-    id: "v",
-    category: "green",
-    title: "Let's learn the V sound! 🎤",
-    subtitle: "Bite lip and buzz like a vacuum! 🌀",
-    voiceText: "Let's learn the V sound!",
-    videoSrc: VSoundVideo,
-    nextRoute: "/ArticulationGame/partice/v",
-    backgroundImage: VSoundBg,
-    sound: PopSound,
-    
-    level1: {
-      animation: BalloonAni,
-      basket_img: BalloonImg,
-      exercises: [
-        { 
-          word: "vv", 
-          emoji: "🌀",  
-          tip: "👄 Bite lower lip, add voice like a vacuum 🌀! V...V" 
-        },
-        { 
-          word: "vvv", 
-          emoji: "✈️",    
-          tip: "👄 Long buzz like a plane ✈️! V...V..V" 
-        }
-      ]
-    },
-    level2: {
-      animation: PenguinAni,
-      basket_img: PenguinImg,
-      exercises: [
-        { 
-          word: "vava", 
-          emoji: "👶",  
-          tip: "👶 Say 'VA' like a baby - bite lip then buzz! 🌀" 
-        },
-        { 
-          word: "vovo", 
-          emoji: "👵", 
-          tip: "👵 Say 'VO' like grandma - strong lip bite and buzz!" 
-        },
-        { 
-          word: "vivi", 
-          emoji: "🌟",      
-          tip: "🌟 Say 'VI' like vibrant - gentle lip bite and buzz!" 
-        }
-      ]
-    },
-    level3: {
-      animation: TreasureAni,
-      basket_img: TreasureImg,
-      exercises: [
-        { 
-          word: "vase", 
-          emoji: "🏺",  
-          tip: "🏺 Say 'VASE' with strong lip buzz 🌀 at the start!" 
-        },
-        { 
-          word: "seven", 
-          emoji: "7️⃣",   
-          tip: "7️⃣ Say 'SE-VEN' - don't forget the V lip buzz 🌀 in the middle!" 
-        },
-        { 
-          word: "love", 
-          emoji: "❤️",  
-          tip: "❤️ Say 'LOVE' with lip buzz 🌀 at the end - LO-VVVV!" 
-        }
-      ]
-    },
-    level4: {
-      animation: birdAni,          // Animated car moving along a road
-      basket_img: birdImg,    // Cute suitcase as the "basket"
-      exercises: [
-        { 
-          word: "Drive the van!",  
-          emoji: "🚐",  
-          tip: "🚐 Say 'DRIVE THE VAN' - buzz your lips on both V's! Vvv-Vvv!" 
-        },
-        { 
-          word: "Visit the valley!",  
-          emoji: "🏞️",  
-          tip: "🏞️ Say 'VISIT THE VALLEY' - strong V's at the start and middle!" 
-        },
-        { 
-          word: "Give me five!",  
-          emoji: "✋",  
-          tip: "✋ Say 'GIVE ME FIVE' - buzz your lip on 'GIVE' and 'FIVE'!" 
-        },
-        { 
-          word: "I love violets!",  
-          emoji: "💜",  
-          tip: "💜 Say 'I LOVE VIOLETS' - long V buzz in 'LOVE' & 'VIOLETS'!" 
-        },
-        { 
-          word: "Wave at Eva!",  
-          emoji: "👋",  
-          tip: "👋 Say 'WAVE AT EVA' - gentle lip buzz on 'WAVE' & 'EVA'!" 
-        }
-      ]
-    }
-  },
+ 
 
   // S Sound (Yellow Light - Tongue Tip)
   s: {
@@ -1026,11 +902,6 @@ const SoundData = {
           word: "soso", 
           emoji: "🤷", 
           tip: "🤷 Say 'SO' like 'so-so' - strong tongue hiss!" 
-        },
-        { 
-          word: "sisi", 
-          emoji: "👯",      
-          tip: "👯 Say 'SI' like sister - light tongue hiss!" 
         }
       ]
     },
@@ -1084,102 +955,102 @@ const SoundData = {
   },
 
   // Z Sound (Yellow Light - Tongue Tip)
-  z: {
-    id: "z",
-    category: "yellow",
-    title: "Let's learn the Z sound! 🎤",
-    subtitle: "Tongue behind teeth and buzz like a bee! 🐝",
-    voiceText: "Let's learn the Z sound!",
-    videoSrc: ZSoundVideo,
-    nextRoute: "/ArticulationGame/partice/z",
-    backgroundImage: ZSoundBg,
-    sound: PopSound,
+  // z: {
+  //   id: "z",
+  //   category: "yellow",
+  //   title: "Let's learn the Z sound! 🎤",
+  //   subtitle: "Tongue behind teeth and buzz like a bee! 🐝",
+  //   voiceText: "Let's learn the Z sound!",
+  //   videoSrc: ZSoundVideo,
+  //   nextRoute: "/ArticulationGame/partice/z",
+  //   backgroundImage: ZSoundBg,
+  //   sound: PopSound,
     
-    level1: {
-      animation: BalloonAni,
-      basket_img: BalloonImg,
-      exercises: [
-        { 
-          word: "zz", 
-          emoji: "🐝",  
-          tip: "👅 Tongue behind teeth, buzz like a bee 🐝! Z...Z" 
-        },
-        { 
-          word: "zzz", 
-          emoji: "💤",    
-          tip: "👅 Long buzz like sleeping 💤! Z...Z..Z" 
-        }
-      ]
-    },
-    level2: {
-      animation: PenguinAni,
-      basket_img: PenguinImg,
-      exercises: [
-        { 
-          word: "zaza", 
-          emoji: "👶",  
-          tip: "👶 Say 'ZA' like a baby - tongue up then buzz! 🐝" 
-        },
-        { 
-          word: "zozo", 
-          emoji: "🤡", 
-          tip: "🤡 Say 'ZO' like silly - strong tongue buzz!" 
-        },
-        { 
-          word: "zizi", 
-          emoji: "✂️",      
-          tip: "✂️ Say 'ZI' like scissors - light tongue buzz!" 
-        }
-      ]
-    },
-    level3: {
-      animation: TreasureAni,
-      basket_img: TreasureImg,
-      exercises: [
-        { 
-          word: "zoo", 
-          emoji: "🐘",  
-          tip: "🐘 Say 'ZOO' with strong tongue buzz 🐝 at the start!" 
-        },
-        { 
-          word: "pizza", 
-          emoji: "🍕",   
-          tip: "🍕 Say 'PIZ-ZA' - don't forget the Z buzz 🐝 in the middle!" 
-        },
-        { 
-          word: "cheese", 
-          emoji: "🧀",  
-          tip: "🧀 Say 'CHEESE' with tongue buzz 🐝 at the end - CHEE-ZZZ!" 
-        }
-      ]
-    },
-    level4: {
-      animation: birdAni, // Animation of buzzing bees
-      basket_img: birdImg, // Image of a beehive
-      exercises: [
-        { 
-          word: "Zoe zips her jacket",
-          emoji: "👧🆒🧥",
-          tip: "Buzz on Z's: 'Zzz-oe zzz-ips her jacket'"
-        },
-        { 
-          word: "The zebra zigzags",
-          emoji: "🦓⚡",
-          tip: "Strong buzzes: 'The zzz-ebra zzz-igzzz-ags'"
-        },
-        { 
-          word: "Zack's zipper is stuck",
-          emoji: "👦🤐🛑",
-          tip: "Buzz through the sentence: 'Zzz-ack's zzz-ipper is stuck'"
-        },
-        { 
-          word: "Buzzy bees zoom by",
-          emoji: "🐝💨👋",
-          tip: "Extra buzz: 'Buzzy bzzz-ees zzz-oom by'"
-        }
-      ]
-    }
-  },
+  //   level1: {
+  //     animation: BalloonAni,
+  //     basket_img: BalloonImg,
+  //     exercises: [
+  //       { 
+  //         word: "zz", 
+  //         emoji: "🐝",  
+  //         tip: "👅 Tongue behind teeth, buzz like a bee 🐝! Z...Z" 
+  //       },
+  //       { 
+  //         word: "zzz", 
+  //         emoji: "💤",    
+  //         tip: "👅 Long buzz like sleeping 💤! Z...Z..Z" 
+  //       }
+  //     ]
+  //   },
+  //   level2: {
+  //     animation: PenguinAni,
+  //     basket_img: PenguinImg,
+  //     exercises: [
+  //       { 
+  //         word: "zaza", 
+  //         emoji: "👶",  
+  //         tip: "👶 Say 'ZA' like a baby - tongue up then buzz! 🐝" 
+  //       },
+  //       { 
+  //         word: "zozo", 
+  //         emoji: "🤡", 
+  //         tip: "🤡 Say 'ZO' like silly - strong tongue buzz!" 
+  //       },
+  //       { 
+  //         word: "zizi", 
+  //         emoji: "✂️",      
+  //         tip: "✂️ Say 'ZI' like scissors - light tongue buzz!" 
+  //       }
+  //     ]
+  //   },
+  //   level3: {
+  //     animation: TreasureAni,
+  //     basket_img: TreasureImg,
+  //     exercises: [
+  //       { 
+  //         word: "zoo", 
+  //         emoji: "🐘",  
+  //         tip: "🐘 Say 'ZOO' with strong tongue buzz 🐝 at the start!" 
+  //       },
+  //       { 
+  //         word: "pizza", 
+  //         emoji: "🍕",   
+  //         tip: "🍕 Say 'PIZ-ZA' - don't forget the Z buzz 🐝 in the middle!" 
+  //       },
+  //       { 
+  //         word: "cheese", 
+  //         emoji: "🧀",  
+  //         tip: "🧀 Say 'CHEESE' with tongue buzz 🐝 at the end - CHEE-ZZZ!" 
+  //       }
+  //     ]
+  //   },
+  //   level4: {
+  //     animation: birdAni, // Animation of buzzing bees
+  //     basket_img: birdImg, // Image of a beehive
+  //     exercises: [
+  //       { 
+  //         word: "Zoe zips her jacket",
+  //         emoji: "👧🆒🧥",
+  //         tip: "Buzz on Z's: 'Zzz-oe zzz-ips her jacket'"
+  //       },
+  //       { 
+  //         word: "The zebra zigzags",
+  //         emoji: "🦓⚡",
+  //         tip: "Strong buzzes: 'The zzz-ebra zzz-igzzz-ags'"
+  //       },
+  //       { 
+  //         word: "Zack's zipper is stuck",
+  //         emoji: "👦🤐🛑",
+  //         tip: "Buzz through the sentence: 'Zzz-ack's zzz-ipper is stuck'"
+  //       },
+  //       { 
+  //         word: "Buzzy bees zoom by",
+  //         emoji: "🐝💨👋",
+  //         tip: "Extra buzz: 'Buzzy bzzz-ees zzz-oom by'"
+  //       }
+  //     ]
+  //   }
+  // },
 
 
 
@@ -1200,11 +1071,7 @@ const SoundData = {
       animation: TreasureAni,
       basket_img: TreasureImg,
       exercises: [
-        { 
-          word: "shoe", 
-          emoji: "👟",  
-          tip: "👟 Say 'SHOE' with round lips 🤫 at the start!" 
-        },
+    
         { 
           word: "washing", 
           emoji: "🧼",   
@@ -1221,18 +1088,14 @@ const SoundData = {
       animation: BalloonAni,
       basket_img: BalloonImg,
       exercises: [
+
         { 
-          word: "The shoe is red.", 
-          emoji: "👟", 
-          tip: "Say it slowly: 'The SHOE is red' – round your lips for SH 🤫!"
-        },
-        { 
-          word: "She is washing the cup.", 
+          word: "She is washing the mug", 
           emoji: "🧼", 
           tip: "Listen for the SH in 'washing' – keep it soft and long 🤫!"
         },
         { 
-          word: "I see a fish.", 
+          word: "I see a fish", 
           emoji: "🐟", 
           tip: "End with a hiss: 'fishhh' – great SH at the end! 🤫"
         },
@@ -1270,28 +1133,8 @@ const SoundData = {
         }
       ]
     },
+
     level2: {
-      animation: PenguinAni,
-      basket_img: PenguinImg,
-      exercises: [
-        { 
-          word: "jaja", 
-          emoji: "😂",  
-          tip: "😂 Say 'JA' like laughing - tongue up with voice! 🎵" 
-        },
-        { 
-          word: "jojo", 
-          emoji: "🤹", 
-          tip: "🤹 Say 'JO' like juggling - strong tongue lift!" 
-        },
-        { 
-          word: "jiji", 
-          emoji: "🦗",      
-          tip: "🦗 Say 'JI' like a cricket - light bouncy sound!" 
-        }
-      ]
-    },
-    level3: {
       animation: TreasureAni,
       basket_img: TreasureImg,
       exercises: [
@@ -1301,9 +1144,9 @@ const SoundData = {
           tip: "🦘 Say 'JUMP' with tongue up 🎵 at the start!" 
         },
         { 
-          word: "pajamas", 
-          emoji: "🛏️",   
-          tip: "🛏️ Say 'PA-JAM-AS' - don't forget the J bounce 🎵 in the middle!" 
+          word: "jam", 
+          emoji: "🍓",  
+          tip: "🍓 Say 'JAM' with a big lip hum 🎵 at the end - JA-HUMM!" 
         },
         { 
           word: "orange", 
@@ -1312,7 +1155,7 @@ const SoundData = {
         }
       ]
     },
-    level4: {
+    level3: {
       animation: birdAni,  // Animation of a jumping kangaroo
       basket_img: birdImg,  // Image of kangaroo/jumping theme
       exercises: [
@@ -1321,11 +1164,7 @@ const SoundData = {
           emoji: "👦🦘😄",
           tip: "Bounce on J's: 'Jjj-ack jjj-umps jjj-oyfully'"
         },
-        { 
-          word: "Jill's jelly jar jiggles",
-          emoji: "👧🍮🫙",
-          tip: "Strong bounces: 'Jjj-ill's jjj-elly jjj-ar jjj-iggles'"
-        },
+
         { 
           word: "The giant joined the journey",
           emoji: "👹✈️🗺️",
@@ -1378,17 +1217,17 @@ const SoundData = {
       basket_img: BalloonImg,
       exercises: [
         { 
-          word: "The chair is blue.", 
+          word: "The chair is blue", 
           emoji: "🪑🔵", 
           tip: "Emphasize starting CH: 'The CHHH-air is blue'"
         },
         { 
-          word: "I want ketchup!", 
+          word: "I want ketchup", 
           emoji: "👦🍅", 
           tip: "Strong middle CH: 'I want KET-CHHH-up!'"
         },
         { 
-          word: "Look at my watch.", 
+          word: "Look at my watch", 
           emoji: "👀⌚", 
           tip: "Hold ending CH: 'Look at my wa-TCHHHH'"
         },
@@ -1433,18 +1272,14 @@ const SoundData = {
       animation: BalloonAni,
       basket_img: BalloonImg,
       exercises: [
+  
         { 
-          word: "Theo brushes his teeth.", 
-          emoji: "👦🪥", 
-          tip: "Three TH sounds! 'THHH-eo brushes his TEE-THHH'" 
-        },
-        { 
-          word: "This toothpaste is thick!", 
+          word: "This toothpaste is thick", 
           emoji: "🪥🌀", 
           tip: "Starting TH: 'THHH-is' & 'THHH-ick' (tongue out twice!)" 
         },
         { 
-          word: "Mother loves smooth cloth.", 
+          word: "Mother loves smooth cloth", 
           emoji: "👩❤️👕", 
           tip: "Middle/end TH: 'Mo-THHH-er' and 'clo-THHH'" 
         }
@@ -1453,24 +1288,17 @@ const SoundData = {
     level3: {
       animation: PenguinAni,
       basket_img: PenguinImg,
-      exercises: [
-        { 
-          
-          emoji: "🤔👤", 
-          tip: "Story mode! Listen for all TH sounds:",
-          word: [
-           `The Thinking Thief stole three things:
-a thorn,
-a thermos,
-and thirty thumbs`
-          
-          
-           
-           
-        ]
-        }
+     exercises: [
+  {
+    emoji: "🤔👤",
+    tip: "Story mode! Listen for all TH sounds:",
+    word: "The thief is very thin. He thinks about thunder. He throws a thick cloth. Then he thanks his brother.",
+      isSentence: true,
+  targetSound: "th"
+  }
 
-      ]
+]
+
     }
   }
 };

@@ -5,13 +5,13 @@ import { useNavigate, useParams } from "react-router-dom"; // ✅ Import navigat
 import '../styles/SoundIntroPage.css';
 import animationData1 from "../assets/Animation-withoutTxt.json";  // 
 // Import sound data from the new file
-import soundData from "../data/SoundData";
+import SoundData from "../data/SoundData";
 
 const SoundIntroPage = () => {
   const { soundId } = useParams(); // ✅ Get the dynamic soundId from the URL
 
   // Retrieve the config based on the soundId (e.g., "p", "b")
-  const config = soundData[soundId];
+  const config = SoundData[soundId];
   if (!config) return <div>Sound not found</div>; // Fallback if soundId is not found
 
   const { title, subtitle, animationData, voiceText, videoSrc, nextRoute,backgroundImage } = config;
@@ -87,7 +87,7 @@ const SoundIntroPage = () => {
       )}
 
       {videoPlayed && (
-        <div className="instruction-video flex flex-col items-center justify-center space-y-4 ">
+        <div className="instruction-video flex flex-col items-center justify-center space-y-4 "> 
           <h1 className="text-2xl font-bold text-purple-600 mb-4 ArticulationGameHeading">
             {title}
           </h1>

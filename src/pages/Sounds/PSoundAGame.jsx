@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect,useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { LinearProgress } from "@mui/material";
 import { motion } from "framer-motion";
@@ -20,11 +20,11 @@ import GameHeader from "../../components/ArticulationComponents/GameHeader";
 const PSoundAGame = () => {
   const { soundId } = useParams();
   const exercise = articulationExercises[soundId];
-  const totalLevels = Object.keys(exercise)
-  .filter(key => key.startsWith('level'))
-  .length;
-console.log('Total levels detected:', totalLevels); // Should show 4
-console.log('Available levels:', Object.keys(exercise).filter(key => key.startsWith('level'))); // Should show ['level1', 'level2', 'level3', 'level4']
+  const totalLevels = useMemo(() => {
+    if (!exercise) return 0;
+    return Object.keys(exercise).filter(key => key.startsWith('level')).length;
+  }, [exercise]);
+  
   
   if (!exercise) return <div>Exercise not found</div>;
   
@@ -111,55 +111,243 @@ console.log('Available levels:', Object.keys(exercise).filter(key => key.startsW
     };
   }, [exercise.sound, currentLevelData]);
 
-  // Speech recognition handlers
-  const startListening = (targetWordObj) => {
-    if (!recognitionRef.current || isRecognitionActive.current || isListening) return;
 
+  // const startListening = (targetWordObj) => {
+  //   console.log('Attempting to start listening...');
+  //   console.log('Target word:', targetWordObj.word);
+  
+  //   if (!recognitionRef.current) {
+  //     console.error('Speech recognition not initialized!');
+  //     return;
+  //   }
+  
+  //   if (isRecognitionActive.current || isListening) {
+  //     console.warn('Recognition already active or listening in progress');
+  //     return;
+  //   }
+  
+  //   const recognition = recognitionRef.current;
+  //   let resultProcessed = false;
+  
+  //   console.log('Setting up recognition handlers...');
+  
+  //   recognition.onresult = (event) => {
+  //     console.log('Speech recognition result received:', event);
+  //     const result = event.results[0];
+      
+  //     if (!result.isFinal) {
+  //       console.log('Non-final result received, ignoring');
+  //       return;
+  //     }
+      
+  //     if (resultProcessed) {
+  //       console.log('Result already processed, ignoring');
+  //       return;
+  //     }
+      
+  //     resultProcessed = true;
+  //     const transcript = result[0]?.transcript?.trim().toLowerCase();
+  //     console.log('Processed transcript:', transcript);
+  
+  //     if (!transcript) {
+  //       console.warn('Empty transcript received');
+  //       toast.error("Sorry, I didn't catch that. Try again!");
+  //       setIsListening(false);
+  //       return;
+  //     }
+  
+  //     const targetWord = targetWordObj.word.toLowerCase();
+  //     console.log('Comparing against target word:', targetWord);
+      
+  //     // Check if transcript is exactly the target word (with possible spaces between letters)
+  //     const isIsolatedWordWithSpaces = 
+  //       transcript.replace(/\s+/g, '') === targetWord && // letters match when spaces removed
+  //       transcript.split(/\s+/).length > 1; // contains at least one space
+      
+  //     // Check if word appears in a sentence (standard word boundary check)
+  //     const pattern = new RegExp(`\\b${targetWord}\\b`, "i");
+  //     const isWordInSentence = pattern.test(transcript);
+  
+  //     if (isIsolatedWordWithSpaces || isWordInSentence) {
+  //       console.log('Match found! Word recognized correctly');
+  //       handleWordSpoken(targetWordObj);
+  //     } else {
+  //       console.log('No match found. Received:', transcript, 'Expected:', targetWord);
+  //       handleIncorrectWord(targetWordObj, transcript);
+  //     }
+  
+  //     setIsListening(false);
+  //   };
+  
+  //   recognition.onend = () => {
+  //     console.log('Recognition ended');
+  //     setIsListening(false);
+  //     isRecognitionActive.current = false;
+  //   };
+  
+  //   recognition.onerror = (event) => {
+  //     console.error("Recognition error:", event.error);
+  //     if (event.error !== 'no-speech') {
+  //       toast.error(`Error: ${event.error}`);
+  //     }
+  //     setIsListening(false);
+  //     isRecognitionActive.current = false;
+  //     resultProcessed = false;
+  //   };
+  
+  //   console.log('Starting recognition...');
+  //   try {
+  //     recognition.start();
+  //     setIsListening(true);
+  //     isRecognitionActive.current = true;
+  //     console.log('Recognition started successfully');
+  //   } catch (error) {
+  //     console.error('Error starting recognition:', error);
+  //     toast.error('Failed to start voice recognition');
+  //   }
+  // };
+const startListening = (targetWordObj) => {
+    console.log('Attempting to start listening...');
+    console.log('Target word:', targetWordObj.word);
+  
+    if (!recognitionRef.current) {
+      console.error('Speech recognition not initialized!');
+      return;
+    }
+  
+    if (isRecognitionActive.current || isListening) {
+      console.warn('Recognition already active or listening in progress');
+      return;
+    }
+  
     const recognition = recognitionRef.current;
     let resultProcessed = false;
   
+    console.log('Setting up recognition handlers...');
+  
     recognition.onresult = (event) => {
+      console.log('Speech recognition result received:', event);
       const result = event.results[0];
-      if (!result.isFinal || resultProcessed) return;
+      
+      if (!result.isFinal) {
+        console.log('Non-final result received, ignoring');
+        return;
+      }
+      
+      if (resultProcessed) {
+        console.log('Result already processed, ignoring');
+        return;
+      }
       
       resultProcessed = true;
       const transcript = result[0]?.transcript?.trim().toLowerCase();
+      console.log('Processed transcript:', transcript);
   
       if (!transcript) {
+        console.warn('Empty transcript received');
         toast.error("Sorry, I didn't catch that. Try again!");
         setIsListening(false);
         return;
       }
   
       const targetWord = targetWordObj.word.toLowerCase();
-      const pattern = new RegExp(`\\b${targetWord}\\b`, "i");
-  
-      if (pattern.test(transcript)) {
-        handleWordSpoken(targetWordObj);
-      } else {
-        handleIncorrectWord(targetWordObj, transcript);
+      console.log('Comparing against target word:', targetWord);
+      
+      // Check if this is a sentence exercise (modified condition)
+      const isSentenceExercise = targetWordObj.isSentence || 
+                               targetWord.split(/\s+/).length > 4;
+      
+      if (isSentenceExercise) {
+        // NEW: Check if we should use word count accuracy (for regular sentences)
+        if (targetWordObj.targetSound) {
+          // Handle sound detection in sentences (original logic)
+          const soundPattern = new RegExp(
+            `\\b[^\\s]*${targetWordObj.targetSound}[^\\s]*\\b`, 
+            "gi"
+          );
+          const matches = transcript.match(soundPattern);
+          console.log('Sound detection mode - found matches:', matches);
+          
+          if (matches && matches.length > 0) {
+            console.log('Target sound found in sentence!');
+            handleWordSpoken(targetWordObj);
+          } else {
+            console.log('Target sound not found in sentence');
+            handleIncorrectWord(targetWordObj, transcript);
+          }
+        } else {
+          // NEW: Handle sentence accuracy (85% of words)
+          const targetWords = targetWord.split(/\s+/);
+          const spokenWords = transcript.split(/\s+/);
+          
+          let correctCount = 0;
+          const requiredCorrect = Math.ceil(targetWords.length * 0.98);
+          
+          // Flexible matching - words can be out of order
+          targetWords.forEach(targetWord => {
+            if (spokenWords.some(spokenWord => spokenWord.includes(targetWord))) {
+              correctCount++;
+            }
+          });
+          
+          if (correctCount >= requiredCorrect) {
+            console.log(`Sentence success! ${correctCount}/${targetWords.length} words correct`);
+            handleWordSpoken(targetWordObj);
+          } else {
+            console.log(`Sentence needs improvement: ${correctCount}/${targetWords.length} words correct`);
+            handleIncorrectWord(targetWordObj, transcript);
+          }
+        }
+      } 
+      else {
+        // Original word matching logic (unchanged)
+        const isIsolatedWordWithSpaces = 
+          transcript.replace(/\s+/g, '') === targetWord.replace(/\s+/g, '') && 
+          transcript.split(/\s+/).length > 1;
+        
+        const pattern = new RegExp(`\\b${targetWord.replace(/\s+/g, '\\s*')}\\b`, "i");
+        const isWordInSentence = pattern.test(transcript);
+    
+        if (isIsolatedWordWithSpaces || isWordInSentence) {
+          console.log('Match found! Word recognized correctly');
+          handleWordSpoken(targetWordObj);
+        } else {
+          console.log('No match found. Received:', transcript, 'Expected:', targetWord);
+          handleIncorrectWord(targetWordObj, transcript);
+        }
       }
   
       setIsListening(false);
     };
   
+    // Rest of your existing handlers remain unchanged
     recognition.onend = () => {
+      console.log('Recognition ended');
       setIsListening(false);
       isRecognitionActive.current = false;
     };
-    
+  
     recognition.onerror = (event) => {
       console.error("Recognition error:", event.error);
-      if (event.error !== 'no-speech') toast.error(`Error: ${event.error}`);
+      if (event.error !== 'no-speech') {
+        toast.error(`Error: ${event.error}`);
+      }
       setIsListening(false);
       isRecognitionActive.current = false;
       resultProcessed = false;
     };
-    
-    recognition.start();
-    setIsListening(true);
-    isRecognitionActive.current = true;
-  };
+  
+    console.log('Starting recognition...');
+    try {
+      recognition.start();
+      setIsListening(true);
+      isRecognitionActive.current = true;
+      console.log('Recognition started successfully');
+    } catch (error) {
+      console.error('Error starting recognition:', error);
+      toast.error('Failed to start voice recognition');
+    }
+};
 
   const handleWordSpoken = (wordObj) => {
     setCurrentTip("");
@@ -180,17 +368,12 @@ console.log('Available levels:', Object.keys(exercise).filter(key => key.startsW
     timeoutRef.current = setTimeout(() => {
       setShowAnimation(false);
       
+      // Only show overlay if ALL words are completed
       if (remaining.length === 0) {
-        // Debug the current level and total levels
-        console.log(`Current level: ${currentLevel}, Total levels: ${totalLevels}`);
-        
-        // Modified condition - use !== instead of <
-        if (currentLevel !== totalLevels) {
-          console.log("Showing level complete overlay");
-          setShowLevelCompleteOverlay(true);
+        if (currentLevel < totalLevels) {
+          setShowLevelCompleteOverlay(true);  // Not last level yet
         } else {
-          console.log("Showing final completion overlay");
-          setShowCompletionOverlay(true);
+          setShowCompletionOverlay(true);     // Final level completed
         }
       }
     }, 2000);
@@ -253,8 +436,7 @@ console.log('Available levels:', Object.keys(exercise).filter(key => key.startsW
       }));
       
       if (remaining.length === 0) {
-        console.log(`Current level: ${currentLevel}, Total levels: ${totalLevels}`);
-        if (currentLevel !== totalLevels) {
+        if (currentLevel < totalLevels) {
           setShowLevelCompleteOverlay(true);
         } else {
           setShowCompletionOverlay(true);
@@ -434,11 +616,11 @@ console.log('Available levels:', Object.keys(exercise).filter(key => key.startsW
             );
           })}
         </div>
-           <BasketArea 
+  <BasketArea 
   showAnimation={showAnimation}
   basketImage={currentLevelData.basket_img}
   animationData={currentLevelData.animation}
-/>
+ />
       </div>
 
 

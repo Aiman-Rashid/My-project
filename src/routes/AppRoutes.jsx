@@ -8,6 +8,7 @@ import Register from "../pages/Register";
 import SelectProblem from '../pages/SelectProblem';
 import Articulation from '../pages/Articulation';
 import ArticulationIntro from '../pages/ArticulationIntro';
+import FluencyIntro from '../pages/FluencyIntro';
 import SoundIntroPage from '../pages/SoundIntroPage'; 
 import PSoundAGame from '../pages/Sounds/PSoundAGame';
 import FluencyExercisesPage from "../pages/FluencyExercisesPage";
@@ -28,6 +29,7 @@ function AppRoutes() {
       {/* Articulation routes  */}
       <Route path="/Articulation" element={<Articulation />} />
       <Route path="/ArticulationIntro" element={<ArticulationIntro />} />
+      <Route path="/FluencyIntro" element={<FluencyIntro />} />
       <Route path="/ArticulationGame/:soundId" element={<SoundIntroPage />} />
       <Route path="/ArticulationGame/partice/:soundId" element={<PSoundAGame />} />
       

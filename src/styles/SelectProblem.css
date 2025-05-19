@@ -8,7 +8,12 @@
   --text-color: #333;
   --gradient-bg: linear-gradient(to right, #2575fc,#7030a0);
   --gradient-heading: linear-gradient(to right, #2575fc,#7030a0,purple);
-}  
+} 
+
+.urdu-mode {
+  direction: rtl;
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+} 
 .select-problem-container {
 
     /* Background properties */
@@ -39,6 +44,7 @@
     border-radius: 0;
     box-shadow: none;
     overflow: auto; /* Better than 'visible' for containing children */
+    
   }
   
   .SelectProblemHeading h3{
@@ -53,7 +59,8 @@
     margin-bottom: 20px; /* Space below the title */
   }
 
-  
+
+
   /* Grid container styling */
   .grid-container {
     display: grid;
@@ -80,6 +87,7 @@
     border-radius: 12px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+   
     
   }
   

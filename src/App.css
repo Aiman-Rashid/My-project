@@ -1,0 +1,13 @@
+[lang="ur"] {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif; /* Good Urdu fonts */
+}
+/* Base support for RTL and LTR direction */
+/* html[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+} */

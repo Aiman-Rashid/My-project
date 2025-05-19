@@ -1,73 +1,41 @@
-<<<<<<< HEAD
 import React, { useState, useRef, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { LinearProgress, Button } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
+import { LinearProgress } from "@mui/material";
 import { motion } from "framer-motion";
-import Lottie from "react-lottie";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../../styles/ArticulationGame.css";
 import { speakText } from "../../utils/tts";
-import { recognition } from "../../utils/speechRecognition";
-import PropTypes from "prop-types";
 import articulationExercises from "../../data/soundData";
 import CompletionOverlay from "../../components/ArticulationComponents/CompletionOverlay";
 import LevelCompleteOverlay from "../../components/ArticulationComponents/LevelCompleteOverlay";
 import TryAgainOverlay from "../../components/ArticulationComponents/TryAgainOverlay";
 import wrongSound from '/assets/sounds/TryAgain.ogg';
+import WordCard from "../../components/ArticulationComponents/WordCard";
+import BasketArea from "../../components/ArticulationComponents/BasketArea";
+import LoadingScreen from "../../components/ArticulationComponents/LoadingScreen";
+import GameHeader from "../../components/ArticulationComponents/GameHeader";
 
-const SpeakerButton = ({ word }) => (
-  <button
-    className="play-button"
-    onClick={(e) => {
-      e.stopPropagation();
-      speakText(word);
-    }}
-    aria-label={`Play pronunciation for ${word}`}
-  >
-    🔊
-  </button>
-);
-
-const TipDisplay = ({ tip, onClose }) => (
-  <motion.div 
-    className="tip-display"
-    initial={{ opacity: 0, height: 0 }}
-    animate={{ opacity: 1, height: "auto" }}
-    exit={{ opacity: 0, height: 0 }}
-    transition={{ duration: 0.2 }}
-  >
-    <div className="tip-content">
-      <span className="tip-text">{tip}</span>
-      <button 
-        className="close-tip"
-        onClick={onClose}
-        aria-label="Close tip"
-      >
-        ✕
-      </button>
-    </div>
-  </motion.div>
-);
-
+// Main game component
 const PSoundAGame = () => {
   const { soundId } = useParams();
   const exercise = articulationExercises[soundId];
-  const navigate = useNavigate();
+  const totalLevels = Object.keys(exercise)
+  .filter(key => key.startsWith('level'))
+  .length;
+console.log('Total levels detected:', totalLevels); // Should show 4
+console.log('Available levels:', Object.keys(exercise).filter(key => key.startsWith('level'))); // Should show ['level1', 'level2', 'level3', 'level4']
   
   if (!exercise) return <div>Exercise not found</div>;
   
-  // State declarations
+  // Game state
   const [currentLevel, setCurrentLevel] = useState(() => {
-    // Get saved level from localStorage or default to 1
     const savedLevel = localStorage.getItem(`articulation-level-${soundId}`);
     return savedLevel ? parseInt(savedLevel) : 1;
   });
   const [currentLevelData, setCurrentLevelData] = useState(exercise[`level${currentLevel}`]);
   const [words, setWords] = useState(exercise[`level${currentLevel}`].exercises || []);
   const [progress, setProgress] = useState(0);
-  const [showBasketImage, setShowBasketImage] = useState(true);
-  const [showLottieAnimation, setShowLottieAnimation] = useState(false);
   const [showCompletionOverlay, setShowCompletionOverlay] = useState(false);
   const [showLevelCompleteOverlay, setShowLevelCompleteOverlay] = useState(false);
   const [showTryAgainOverlay, setShowTryAgainOverlay] = useState(false);
@@ -75,27 +43,26 @@ const PSoundAGame = () => {
   const [selectedWord, setSelectedWord] = useState(null);
   const [isAllow, setIsAllow] = useState(false);
   const [currentFailedWord, setCurrentFailedWord] = useState(null);
-  const [stars, setStars] = useState(5);
   const [isLoading, setIsLoading] = useState(true);
   const [assetsLoaded, setAssetsLoaded] = useState(false);
   const [currentTip, setCurrentTip] = useState("");
   const [attemptsPerWord, setAttemptsPerWord] = useState({});
-
+  const [levelStars, setLevelStars] = useState(() => {
+    const stars = {};
+    for (let i = 1; i <= totalLevels; i++) {
+      stars[i] = 5;
+    }
+    return stars;
+  });
+  const [showAnimation, setShowAnimation] = useState(false);
   // Refs
-  const lottieRef = useRef(null);
   const timeoutRef = useRef(null);
   const recognitionRef = useRef(null);
   const isRecognitionActive = useRef(false);
   const correctSoundRef = useRef(null);
   const wrongSoundRef = useRef(null);
-  const videoRef = useRef(null);
-  const [levelStars, setLevelStars] = useState({
-    1: 5, // Level 1 starts with 5 stars
-    2: 5, // Level 2 starts with 5 stars
-    3: 5, // Level 3 starts with 5 stars
-  });
 
-  // Save current level to localStorage whenever it changes
+  // Save level to localStorage
   useEffect(() => {
     localStorage.setItem(`articulation-level-${soundId}`, currentLevel.toString());
   }, [currentLevel, soundId]);
@@ -117,11 +84,9 @@ const PSoundAGame = () => {
   useEffect(() => {
     const loadAssets = async () => {
       try {
-        // Preload sounds
         correctSoundRef.current = new Audio(exercise.sound);
         wrongSoundRef.current = new Audio(wrongSound);
         
-        // Preload Lottie animation
         if (currentLevelData.animation) {
           await new Promise((resolve) => {
             const img = new Image();
@@ -141,34 +106,20 @@ const PSoundAGame = () => {
 
     loadAssets();
     return () => {
-      // Cleanup
-      if (correctSoundRef.current) {
-        correctSoundRef.current.pause();
-        correctSoundRef.current = null;
-      }
-      if (wrongSoundRef.current) {
-        wrongSoundRef.current.pause();
-        wrongSoundRef.current = null;
-      }
+      if (correctSoundRef.current) correctSoundRef.current.pause();
+      if (wrongSoundRef.current) wrongSoundRef.current.pause();
     };
   }, [exercise.sound, currentLevelData]);
 
+  // Speech recognition handlers
   const startListening = (targetWordObj) => {
-    if (!recognitionRef.current || isRecognitionActive.current || isListening) {
-      return;
-    }
-  
+    if (!recognitionRef.current || isRecognitionActive.current || isListening) return;
+
     const recognition = recognitionRef.current;
     let resultProcessed = false;
   
-    // Clear previous handlers to prevent duplicates
-    recognition.onresult = null;
-    recognition.onend = null;
-  
     recognition.onresult = (event) => {
       const result = event.results[0];
-      
-      // Only process final results and only once
       if (!result.isFinal || resultProcessed) return;
       
       resultProcessed = true;
@@ -186,23 +137,7 @@ const PSoundAGame = () => {
       if (pattern.test(transcript)) {
         handleWordSpoken(targetWordObj);
       } else {
-        console.log(`Mismatch: You said "${transcript}", expected "${targetWord}"`);
-        
-        setAttemptsPerWord((prev) => {
-          const currentAttempts = prev[targetWordObj.word] || 0;
-          const updatedAttempts = currentAttempts + 1;
-  
-          if (updatedAttempts >= 2) {
-            setCurrentFailedWord(targetWordObj);
-            setShowTryAgainOverlay(true);
-            wrongSoundRef.current.play();
-            return { ...prev, [targetWordObj.word]: 0 };
-          } else {
-            toast.warning(`Oops! You said "${transcript}". Try again!`);
-            wrongSoundRef.current.play();
-            return { ...prev, [targetWordObj.word]: updatedAttempts };
-          }
-        });
+        handleIncorrectWord(targetWordObj, transcript);
       }
   
       setIsListening(false);
@@ -215,16 +150,12 @@ const PSoundAGame = () => {
     
     recognition.onerror = (event) => {
       console.error("Recognition error:", event.error);
-      if (event.error !== 'no-speech') {
-        toast.error(`Error: ${event.error}`);
-      }
+      if (event.error !== 'no-speech') toast.error(`Error: ${event.error}`);
       setIsListening(false);
       isRecognitionActive.current = false;
       resultProcessed = false;
     };
     
-    // Reset the flag when starting new recognition
-    resultProcessed = false;
     recognition.start();
     setIsListening(true);
     isRecognitionActive.current = true;
@@ -241,69 +172,90 @@ const PSoundAGame = () => {
     );
     
     setProgress(newProgress);
-    setShowBasketImage(false);
-    setShowLottieAnimation(true);
-  
-    if (correctSoundRef.current.readyState >= 2) {
-      correctSoundRef.current.play();
-    }
-
-    if (lottieRef.current) lottieRef.current.play();
-
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
+    playCorrectSound();
+    
+    setShowAnimation(true);
+    
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
-      setShowLottieAnimation(false);
-      setShowBasketImage(true);
+      setShowAnimation(false);
       
       if (remaining.length === 0) {
-        if (currentLevel < 3) {
+        // Debug the current level and total levels
+        console.log(`Current level: ${currentLevel}, Total levels: ${totalLevels}`);
+        
+        // Modified condition - use !== instead of <
+        if (currentLevel !== totalLevels) {
+          console.log("Showing level complete overlay");
           setShowLevelCompleteOverlay(true);
         } else {
+          console.log("Showing final completion overlay");
           setShowCompletionOverlay(true);
         }
       }
+  
     }, 2000);
   };
- 
-  const closeOverlay = () => {
-    setShowCompletionOverlay(false);
-    // Navigate to next route or home after game completion
-    navigate(exercise.nextRoute);
-    // Clear the saved level since we're done with this exercise
-    localStorage.removeItem(`articulation-level-${soundId}`);
+  const handleIncorrectWord = (wordObj, transcript) => {
+    setAttemptsPerWord((prev) => {
+      const currentAttempts = prev[wordObj.word] || 0;
+      const updatedAttempts = currentAttempts + 1;
+
+      if (updatedAttempts >= 2) {
+        setCurrentFailedWord(wordObj);
+        setShowTryAgainOverlay(true);
+        wrongSoundRef.current.play();
+        return { ...prev, [wordObj.word]: 0 };
+      } else {
+        toast.warning(`Oops! You said "${transcript}". Try again!`);
+        wrongSoundRef.current.play();
+        return { ...prev, [wordObj.word]: updatedAttempts };
+      }
+    });
   };
 
-  const proceedToNextLevel = () => {
-    setShowLevelCompleteOverlay(false);
-    setCurrentLevel(prev => prev + 1);
+  const playCorrectSound = () => {
+    if (correctSoundRef.current.readyState >= 2) {
+      correctSoundRef.current.play();
+    }
   };
+
+  // Overlay handlers
+  const closeOverlay = () => {
+    setShowCompletionOverlay(false);
+    navigate(exercise.nextRoute);
+    localStorage.removeItem(`articulation-level-${soundId}`);
+  };
+  const proceedToNextLevel = () => {
+    console.log(`Proceeding to next level from ${currentLevel}`);
+    setShowLevelCompleteOverlay(false);
+    setCurrentLevel(prev => {
+      const nextLevel = prev + 1;
+      console.log(`New level will be: ${nextLevel}`);
+      return nextLevel;
+    });
+  };
+  
 
   const tryAgainWord = () => {
     setShowTryAgainOverlay(false);
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play();
-    }
   };
+
   const moveToNextWord = () => {
     setShowTryAgainOverlay(false);
-  
     if (currentFailedWord) {
       const remaining = words.filter((w) => w.word !== currentFailedWord.word);
       setWords(remaining);
       setCurrentFailedWord(null);
-  
-      // Reduce stars ONLY for the current level (minimum 1)
+      
       setLevelStars(prev => ({
         ...prev,
-        [currentLevel]: Math.max(1, prev[currentLevel] - 1), // Decrease current level's stars
+        [currentLevel]: Math.max(1, prev[currentLevel] - 1),
       }));
-  
+      
       if (remaining.length === 0) {
-        if (currentLevel < 3) {
+        console.log(`Current level: ${currentLevel}, Total levels: ${totalLevels}`);
+        if (currentLevel !== totalLevels) {
           setShowLevelCompleteOverlay(true);
         } else {
           setShowCompletionOverlay(true);
@@ -313,16 +265,10 @@ const PSoundAGame = () => {
   };
 
   const jumpToLevel = (levelNumber) => {
-    console.log(`Attempting to jump to level ${levelNumber}`);
-  
-    levelNumber = Math.max(1, Math.min(3, levelNumber));
-  
+    levelNumber = Math.max(1, Math.min(totalLevels, levelNumber));
     const levelData = exercise[`level${levelNumber}`];
-    if (!levelData) {
-      console.error(`Level ${levelNumber} data not found!`);
-      return;
-    }
-  
+    if (!levelData) return;
+
     setCurrentLevel(levelNumber);
     setProgress(0);
     setCurrentTip("");
@@ -333,17 +279,15 @@ const PSoundAGame = () => {
     setAttemptsPerWord({});
     setCurrentLevelData(levelData);
     setWords([...levelData.exercises]);
-    console.log(`Successfully loaded Level ${levelNumber}`);
   };
-  
 
+  // Microphone initialization
   useEffect(() => {
     if (!assetsLoaded) return;
 
     const initMicrophone = async () => {
       try {
         await navigator.mediaDevices.getUserMedia({ audio: true });
-        console.log("Microphone access granted.");
         setIsAllow(true);
 
         const SpeechRecognition =
@@ -358,32 +302,6 @@ const PSoundAGame = () => {
         recognition.interimResults = true;
         recognition.maxAlternatives = 1;
 
-        recognition.onstart = () => {
-          isRecognitionActive.current = true;
-          console.log("Speech recognition started successfully.");
-        };
-
-        recognition.onspeechstart = () => {
-          console.log("Speech detected.");
-        };
-
-        recognition.onspeechend = () => {
-          console.log("Speech ended.");
-        };
-
-        recognition.onerror = (event) => {
-          console.error("Recognition error:", event.error);
-          toast.error(`Speech recognition error: ${event.error}`);
-          setIsListening(false);
-          isRecognitionActive.current = false;
-        };
-
-        recognition.onend = () => {
-          console.log("Speech recognition ended.");
-          setIsListening(false);
-          isRecognitionActive.current = false;
-        };
-
         recognitionRef.current = recognition;
       } catch (err) {
         console.warn("Microphone access denied:", err);
@@ -396,98 +314,75 @@ const PSoundAGame = () => {
 
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      if (recognitionRef.current) {
-        recognitionRef.current.abort();
-      }
+      if (recognitionRef.current) recognitionRef.current.abort();
     };
   }, [assetsLoaded]);
 
+  // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Only handle if no overlays are showing and there are words left
       const inOverlay = showCompletionOverlay || showTryAgainOverlay || showLevelCompleteOverlay;
       if (inOverlay || words.length === 0 || isListening) return;
-  
-      // Ctrl + Number (1-3) for direct level access
-      if (e.ctrlKey && e.key >= '1' && e.key <= '3') {
+
+      if (e.ctrlKey && e.key >= '1' && e.key <= String(totalLevels)) {
         e.preventDefault();
-        const levelNumber = parseInt(e.key);
-        jumpToLevel(levelNumber);
-        toast.success(`Jumped to Level ${levelNumber}`);
+        jumpToLevel(parseInt(e.key));
         return;
       }
-  
-      // Testing shortcuts (only work when not in overlay)
-      switch (e.key.toLowerCase()) {
-        case 't':
-          e.preventDefault();
-          console.log("Secret testing key pressed - simulating correct pronunciation");
-          const randomWord = words[Math.floor(Math.random() * words.length)];
-          handleWordSpoken(randomWord);
-          break;
-          
-        case 'w':
-          e.preventDefault();
-          console.log("Secret testing key pressed - simulating wrong pronunciation");
-          const randomWrongWord = words[Math.floor(Math.random() * words.length)];
-          setCurrentFailedWord(randomWrongWord);
-          setShowTryAgainOverlay(true);
-          setAttemptsPerWord(prev => ({
-            ...prev,
-            [randomWrongWord.word]: 0
-          }));
-          break;
-          
-        default:
-          break;
+
+      // Testing shortcuts
+      if (e.key.toLowerCase() === 't') {
+        e.preventDefault();
+        const randomWord = words[Math.floor(Math.random() * words.length)];
+        handleWordSpoken(randomWord);
+      } else if (e.key.toLowerCase() === 'w') {
+        e.preventDefault();
+        const randomWrongWord = words[Math.floor(Math.random() * words.length)];
+        setCurrentFailedWord(randomWrongWord);
+        setShowTryAgainOverlay(true);
+        setAttemptsPerWord(prev => ({
+          ...prev,
+          [randomWrongWord.word]: 0
+        }));
       }
     };
-  
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [words, isListening, showCompletionOverlay, showTryAgainOverlay, showLevelCompleteOverlay]);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      console.log(`Key pressed: ${e.key}, Ctrl pressed: ${e.ctrlKey}`); // Debug log
-      
-      // Only handle if no overlays are showing
-      const inOverlay = showCompletionOverlay || showTryAgainOverlay || showLevelCompleteOverlay;
-      if (inOverlay) return;
-      
-      // Ctrl + Number (1-3) for direct level access
-      if (e.ctrlKey && e.key >= '1' && e.key <= '3') {
-        e.preventDefault();
-        const levelNumber = parseInt(e.key);
-        console.log(`Ctrl+${levelNumber} detected`); // Debug log
-        jumpToLevel(levelNumber);
-        toast.success(`Jumped to Level ${levelNumber}`);
-        return;
-      }
-    };
-  
-    // Add event listener
-    window.addEventListener('keydown', handleKeyDown);
-    
-    // Cleanup
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [currentLevel, showCompletionOverlay, showTryAgainOverlay, showLevelCompleteOverlay]);
+    console.log(`Level changed to: ${currentLevel}`);
+    console.log(`Level data for level${currentLevel}:`, exercise[`level${currentLevel}`]);
+  }, [currentLevel, exercise]);
 
-  if (isLoading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>Loading game assets...</p>
-      </div>
-    );
-  }
- 
+  if (isLoading) return <LoadingScreen />;
+  const containerStyle = {
+    backgroundImage: `url(${exercise.backgroundImage})`,  
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
+    width: '100%',
+    minHeight: '100vh',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    fontFamily: '"Roboto", sans-serif',
+    textAlign: 'center',
+    margin: 0,
+    border: 'none',
+    borderRadius: 0,
+    boxShadow: 'none',
+    overflow: 'auto',
+   
+  };
+
   return (
-    <div className="game-container">
+    <div className="game-container" style={containerStyle}>
+       
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -499,258 +394,80 @@ const PSoundAGame = () => {
         draggable
         pauseOnHover
       />
-      <h2 className="title">{exercise.title}</h2>
-      <p className="subtitle">
-        {currentLevel === 1 ? exercise.subtitle : `Level ${currentLevel}: ${currentLevel === 2 ? "Syllables" : "Words"}`}
-      </p>
-      <div className="progress-and-tip">
-        <LinearProgress
-          variant="determinate"
-          value={progress}
-          className="progress-bar"
-        />
-        {currentTip && (
-          <TipDisplay 
-            tip={currentTip} 
-            onClose={() => setCurrentTip("")} 
-          />
-        )}
-      </div>
+      
+      <GameHeader 
+        title={exercise.title}
+        subtitle={`Level ${currentLevel}`}
+        progress={progress}
+        currentTip={currentTip}
+        onCloseTip={() => setCurrentTip("")}
+      />
+      
       <div className="game-area">
         <div className="word-list">
           {words.map((wordObj, index) => {
             const wordId = `${wordObj.word}-${index}`;
-            
             return (
-              <motion.div
+              <WordCard
                 key={wordId}
-                className={`word-card ${
-                  selectedWord === wordId ? "selected" : ""
-                } ${isListening ? "disabled" : ""}`}
-                whileHover={{ scale: isListening ? 1 : 1.05 }}
-                whileTap={{ scale: isListening ? 1 : 0.95 }}
+                wordObj={wordObj}
+                wordId={wordId}
+                isSelected={selectedWord === wordId}
+                isListening={isListening}
+                isAllow={isAllow}
+                currentTip={currentTip}
                 onClick={() => {
                   if (isListening || !isAllow) return;
                   setSelectedWord(wordId);
                   setCurrentTip("");
                   startListening(wordObj);
                 }}
-                role="button"
-                tabIndex="0"
-              >
-                <span className="emoji" role="img">
-                  {wordObj.emoji}
-                </span>
-                <span className="word-text">{wordObj.word}</span>
-                <div className="word-buttons">
-                  <SpeakerButton word={wordObj.word} />
-                  <button 
-                    className="tip-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setCurrentTip(currentTip === wordObj.tip ? "" : wordObj.tip);
-                      setSelectedWord(wordId);
-                    }}
-                    aria-label={`Show tip for ${wordObj.word}`}
-                  >
-                    💡
-                  </button>
-                </div>
-              </motion.div>
+                onTipClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentTip(currentTip === wordObj.tip ? "" : wordObj.tip);
+                  setSelectedWord(wordId);
+                }}
+                onSpeakerClick={(e) => {
+                  e.stopPropagation();
+                  speakText(wordObj.word);
+                }}
+              />
             );
           })}
         </div>
-        <div className="basket">
-          {showBasketImage && (
-            <img src={currentLevelData.basket_img} alt="Basket" className="basket-image" />
-          )}
-          {showLottieAnimation && (
-            <Lottie
-              ref={lottieRef}
-              options={{
-                animationData: currentLevelData.animation,
-                loop: false,
-                autoplay: true,
-              }}
-              height={300}
-              width={300}
-            />
-          )}
-        </div>
+           <BasketArea 
+  showAnimation={showAnimation}
+  basketImage={currentLevelData.basket_img}
+  animationData={currentLevelData.animation}
+/>
+      </div>
 
 
-        {showCompletionOverlay && (
+      {showCompletionOverlay && (
   <CompletionOverlay
-    stars={levelStars[3]} // <-- Only Level 3's stars
+    stars={levelStars[currentLevel]}  // Use currentLevel instead of totalLevels
     onClose={closeOverlay}
-    level={currentLevel}
-  />
-)}
-      {showLevelCompleteOverlay && (
-  <LevelCompleteOverlay
-    currentLevel={currentLevel}
-    onProceed={proceedToNextLevel}
-    stars={levelStars[currentLevel]} // <-- Only this level's stars
   />
 )}
       
-
-        {showTryAgainOverlay && currentFailedWord && (
-          <TryAgainOverlay
-            word={currentFailedWord.word}
-            videoSrc={exercise.videoSrc}
-            onTryAgain={tryAgainWord}
-            onNextWord={moveToNextWord}
-            videoRef={videoRef}
-          />
-        )}
-      </div>
+      {showLevelCompleteOverlay && (
+        <LevelCompleteOverlay
+          currentLevel={currentLevel}
+          onProceed={proceedToNextLevel}
+          stars={levelStars[currentLevel]}
+        />
+      )}
+      
+      {showTryAgainOverlay && currentFailedWord && (
+        <TryAgainOverlay
+          word={currentFailedWord.word}
+          videoSrc={exercise.videoSrc}
+          onTryAgain={tryAgainWord}
+          onNextWord={moveToNextWord}
+        />
+      )}
     </div>
   );
 };
 
-PSoundAGame.propTypes = {
-  id: PropTypes.string,
-};
-
 export default PSoundAGame;
-=======
-// import React, { useState, useRef, useEffect, useMemo } from "react";
-// import { useParams, Link } from "react-router-dom";
-// import { LinearProgress, Button } from "@mui/material";
-// import { motion } from "framer-motion";
-// import Lottie from "react-lottie";
-// import animationData2 from "../../assets/ballon.json";
-// import balloonImage from "../../assets/img/ballon.png";
-// import "../../styles/ArticulationGame.css";
-// import { speakText } from "../../utils/tts";
-// import { startSpeechRecognition } from "../../utils/speechRecognition";
-// import PropTypes from "prop-types";
-// import articulationExercises from "../../data/soundData"; // ✅ Import from data file
-
-// const SpeakerButton = ({ word }) => (
-//   <button
-//     className="play-button"
-//     onClick={(e) => {
-//       e.stopPropagation();
-//       speakText(word);
-//     }}
-//     aria-label={`Play pronunciation for ${word}`}
-//   >
-//     🔊
-//   </button>
-// );
-
-// const PSoundAGame = () => {
-//   const { soundId } = useParams(); // Change from 'id' to 'soundId'
-//   const exercise = articulationExercises[soundId]; // ✅ Get exercise by id from data
-//   if (!exercise) return <div>Exercise not found</div>;
-
-//   const [words, setWords] = useState(exercise.wordsWithEmojis || []);
-//   const [progress, setProgress] = useState(0);
-//   const [showBalloonImage, setShowBalloonImage] = useState(true);
-//   const [showLottieAnimation, setShowLottieAnimation] = useState(false);
-//   const [showCompletionOverlay, setShowCompletionOverlay] = useState(false);
-//   const [isListening, setIsListening] = useState(false);
-//   const [selectedWord, setSelectedWord] = useState(null);
-//   const lottieRef = useRef(null);
-//   const timeoutRef = useRef(null);
-
-//   const handleWordSpoken = (wordObj) => {
-//     const remaining = words.filter((w) => w.word !== wordObj.word);
-//     setWords(remaining);
-//     const newProgress = ((exercise.wordsWithEmojis.length - remaining.length) /
-//       exercise.wordsWithEmojis.length) * 100;
-//     setProgress(newProgress);
-//     setShowBalloonImage(false);
-//     setShowLottieAnimation(true);
-//     if (lottieRef.current) lottieRef.current.play();
-//     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-//     timeoutRef.current = setTimeout(() => {
-//       setShowLottieAnimation(false);
-//       setShowBalloonImage(true);
-//       if (newProgress >= 100) setShowCompletionOverlay(true);
-//     }, 2000);
-//   };
-
-//   useEffect(() => {
-//     return () => {
-//       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-//     };
-//   }, []);
-
-//   const closeOverlay = () => {
-//     setShowCompletionOverlay(false);
-//   };
-
-//   const calculateStars = () => Math.min(5, Math.ceil(progress / 20));
-
-//   return (
-//     <div className="game-container">
-//       <h2 className="title">{exercise.title}</h2>
-//       <p className="subtitle">Tap the speaker to hear. Tap the word card to say it out loud than see the magic✨.</p>
-//       <LinearProgress variant="determinate" value={progress} className="progress-bar" />
-//       <div className="game-area">
-//         <div className="word-list">
-//           {words.map((wordObj) => (
-//             <motion.div
-//               key={wordObj.word}
-//               className={`word-card ${selectedWord === wordObj.word ? "selected" : ""} ${isListening ? "disabled" : ""}`}
-//               whileHover={{ scale: isListening ? 1 : 1.05 }}
-//               whileTap={{ scale: isListening ? 1 : 0.95 }}
-//               onClick={() => {
-//                 if (isListening) return;
-//                 setSelectedWord(wordObj.word);
-//                 handleWordSpoken(wordObj); // ✅ Testing mode: simulate correct speech
-//               }}
-//               role="button"
-//               tabIndex="0"
-//             >
-//               <span className="emoji" role="img">{wordObj.emoji}</span>
-//               <span className="word-text">{wordObj.word}</span>
-//               <SpeakerButton word={wordObj.word} />
-//             </motion.div>
-//           ))}
-//         </div>
-
-//         <div className="basket">
-//           {showBalloonImage && <img src={balloonImage} alt="Balloon" className="balloon-image" />}
-//           {showLottieAnimation && (
-//             <Lottie
-//               ref={lottieRef}
-//               options={{ animationData: animationData2, loop: false, autoplay: true }}
-//               height={300}
-//               width={300}
-//             />
-//           )}
-//         </div>
-
-//         {showCompletionOverlay && (
-//           <div className="completion-overlay">
-//             <div className="completion-content">
-//               <h2>Great Job! 🎉</h2>
-//               <div className="stars-container">
-//                 {[...Array(calculateStars())].map((_, i) => (
-//                   <span key={i} className="star" role="img">⭐</span>
-//                 ))}
-//               </div>
-//               <p>You completed {progress}% of the exercise!</p>
-//               <Link to={"/Articulation"} className="custom-button">
-//                 <Button variant="contained" color="primary" onClick={closeOverlay}>
-//                   Continue
-//                 </Button>
-//               </Link>
-//             </div>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// PSoundAGame.propTypes = {
-//   id: PropTypes.string,
-// };
-
-// export default PSoundAGame;
->>>>>>> 1967140506b0c5d100064ccbdfe4951b3413ce5b

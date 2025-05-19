@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import logo from '../assets/img/logo.png';
+
 const ResetPassword = () => {
+  const { t } = useTranslation();
+
   const [passwords, setPasswords] = useState({
     newPassword: '',
     confirmPassword: ''
   });
+
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState({
     newPassword: false,
@@ -31,14 +36,14 @@ const ResetPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passwords.newPassword !== passwords.confirmPassword) {
-      setError('Passwords do not match!');
+      setError(t('resetPassword.error.mismatch', 'Passwords do not match!'));
       return;
     }
     if (passwords.newPassword.length < 6) {
-      setError('Password must be at least 6 characters long');
+      setError(t('resetPassword.error.tooShort', 'Password must be at least 6 characters long'));
       return;
     }
-    // Add your password reset logic here
+    // Your password reset logic here
     console.log('Password reset successful');
   };
 
@@ -53,10 +58,11 @@ const ResetPassword = () => {
             style={{ width: '350px', position: 'relative', left: '22px'}} 
           />
         </div>
+
         <div className="align-items-center justify-content-center border mx-md-5 mx-2 p-sm-2 p-xl-5">
           <div className="header-text mt-4 mb-4 text-center">
-            <p>Reset Your Password</p>
-            <p>Enter your new password below</p>
+            <p>{t('resetPassword.title', 'Reset Your Password')}</p>
+            <p>{t('resetPassword.subtitle', 'Enter your new password below')}</p>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -64,7 +70,7 @@ const ResetPassword = () => {
               <input
                 className="form-control form-control-lg fs-6 bg-light mx-2"
                 type={showPassword.newPassword ? "text" : "password"}
-                placeholder="New Password"
+                placeholder={t('resetPassword.newPassword', 'New Password')}
                 name="newPassword"
                 value={passwords.newPassword}
                 onChange={handleChange}
@@ -79,7 +85,7 @@ const ResetPassword = () => {
               <input
                 className="form-control form-control-lg fs-6 bg-light mx-2"
                 type={showPassword.confirmPassword ? "text" : "password"}
-                placeholder="Confirm Password"
+                placeholder={t('resetPassword.confirmPassword', 'Confirm Password')}
                 name="confirmPassword"
                 value={passwords.confirmPassword}
                 onChange={handleChange}
@@ -100,15 +106,18 @@ const ResetPassword = () => {
               <button 
                 type="submit"
                 className="btn btn-primary btn-lg w-100 fs-6 m-2 logo-color"
-                style={{outline: 'none', border: 'none'}}
+                style={{ outline: 'none', border: 'none' }}
               >
-                Reset Password
+                {t('resetPassword.button', 'Reset Password')}
               </button>
             </div>
           </form>
 
           <div className="row text-center sup mb-3">
-            <small>Remember your password? <Link to="/login">Back to Login</Link></small>
+            <small>
+              {t('resetPassword.backToLogin', 'Remember your password?')}{' '}
+              <Link to="/login">{t('resetPassword.loginLink', 'Back to Login')}</Link>
+            </small>
           </div>
         </div>
       </div>
@@ -116,4 +125,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword; 
+export default ResetPassword;
